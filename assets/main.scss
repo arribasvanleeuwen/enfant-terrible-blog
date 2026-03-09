@@ -28,7 +28,7 @@ body {
 
 /* Subscribe Button in Header */
 .subscribe-btn {
-  background-color: #ff0000;
+  background-color: #FF0B55;
   color: white !important;
   padding: 8px 18px !important;
   border-radius: 5px;
@@ -39,7 +39,7 @@ body {
 }
 
 .subscribe-btn:hover {
-  background-color: #cc0000;
+  background-color: #D60947; /* Slightly darker pink for hover */
   text-decoration: none !important;
 }
 
@@ -57,24 +57,33 @@ body {
   padding: 25px;
   border-radius: 12px;
   border: 1px solid #2f2f2f;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
+/* Card hover effect (Pink border) */
 .post-list > li:hover {
   transform: translateY(-5px);
-  border-color: #ff0000; /* YouTube Red */
+  border-color: #FF0B55; 
 }
 
 /* Links */
 a {
-  color: #3ea6ff !important; /* YouTube Blue */
+  color: #FF0B55 !important;
 }
 
 a:hover {
   text-decoration: underline;
+  color: #D60947 !important;
 }
 
-/* Responsive Video Container for Automations */
+/* Social Media Icons (Pink) */
+.social-media-list .svg-icon {
+  fill: #FF0B55 !important;
+  width: 22px;
+  height: 22px;
+}
+
+/* Responsive Video Container */
 .video-container {
   position: relative;
   padding-bottom: 56.25%;
