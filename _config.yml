@@ -3,7 +3,7 @@ description: "Top Best New Upcoming Insane Ultra Realistic Next Gen Graphics Unr
 theme: minima
 
 minima:
-  skin: dark # Options: classic, dark, solarized, lemonade
+  skin: dark
   social_links:
     - { platform: youtube, user_url: "https://youtube.com/@enfant-terrible" }
 
