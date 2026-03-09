@@ -12,6 +12,7 @@ jobs:
       - name: Fetch YouTube Videos
         uses: gautamkrishnar/blog-post-workflow@master
         with:
+          readme_path: "./index.md"
           feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
           custom_tags: "videoId/yt:videoId/"
           template: |
