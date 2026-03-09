@@ -1,8 +1,8 @@
 name: YouTube Playlist to Posts
 on:
   schedule:
-    - cron: '0 * * * *' # Se ejecuta cada hora
-  workflow_dispatch: # Permite ejecutarlo a mano para probar
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   update-posts:
@@ -13,17 +13,12 @@ jobs:
         uses: gautamkrishnar/blog-post-workflow@master
         with:
           readme_path: "./index.md"
+          comment_tag_name: "BLOG-POST-LIST"
           feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
           custom_tags: "videoId/yt:videoId/"
           template: |
-            ---
-            layout: post
-            title: "$title"
-            date: $date
-            ---
-            
-            # $title
-            
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/$videoId" frameborder="0" allowfullscreen></iframe>
-            
-            [📺 Watch]($url)
+            <div style="margin-bottom: 30px;">
+              <h3>$title</h3>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/$videoId" frameborder="0" allowfullscreen></iframe>
+              <p><a href="$url">📺 Watch</a> - $date</p>
+            </div>
