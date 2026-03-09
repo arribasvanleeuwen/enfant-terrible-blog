@@ -18,7 +18,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install feedparser
+        run: pip install feedparser requests
 
       - name: Generate Posts
         shell: python
@@ -27,6 +27,7 @@ jobs:
           import os
           import re
           import unicodedata
+          import requests
           from datetime import datetime
 
           FEED_URL = "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
@@ -40,11 +41,18 @@ jobs:
               value = re.sub(r'[^\w\s-]', '', value).strip().lower()
               return re.sub(r'[-\s]+', '-', value)
 
+          def get_best_thumbnail(v_id):
+              max_res_url = f"https://img.youtube.com/vi/{v_id}/maxresdefault.jpg"
+              response = requests.head(max_res_url)
+              if response.status_code == 200:
+                  return max_res_url
+              return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
+
           feed = feedparser.parse(FEED_URL)
 
           for entry in feed.entries:
               video_id = entry.yt_videoid
-              title = entry.title.replace('"', '\\"') # Escapar comillas en el título
+              title = entry.title.replace('"', '\\"')
               published = entry.published_parsed
               date_str = datetime(*published[:6]).strftime('%Y-%m-%d')
               date_full = datetime(*published[:6]).strftime('%Y-%m-%d %H:%M:%S')
@@ -54,8 +62,9 @@ jobs:
               filepath = os.path.join(POSTS_DIR, filename)
 
               if not os.path.exists(filepath):
-                  # Usamos hqdefault por si el video no tiene miniatura en máxima resolución
-                  thumb_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+                  thumb_url = get_best_thumbnail(video_id)
+                  description = entry.summary
+                  description = re.sub(r'(https?://[^\s]+)', r'<a href="\1" target="_blank" rel="noopener">\1</a>', description)
                   
                   content = f"""---
           layout: post
@@ -64,26 +73,34 @@ jobs:
           thumbnail: "{thumb_url}"
           ---
 
-          <img src="{thumb_url}" alt="{title}" style="width:100%; border-radius:10px; margin-bottom:20px;">
+          <div class="video-link-container" style="max-width: 800px; margin: 0 auto; font-family: sans-serif;">
+            
+            <a href="{entry.link}" target="_blank" rel="noopener" style="display: block; position: relative; text-decoration: none; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 30px;">
+              <img src="{thumb_url}" alt="{title}" style="width: 100%; display: block;">
+              
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0,0,0,0.4);">
+                <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>
+              </div>
+              
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px 25px; color: white; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between;">
+                <span>Watch on YouTube</span>
+                <span style="font-size: 0.8em; opacity: 0.9; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3);">HD</span>
+              </div>
+            </a>
 
-          <div class="video-container" style="margin-bottom: 25px;">
-            <iframe width="100%" height="450" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen style="border-radius:12px; border:none;"></iframe>
+            <div class="description-box" style="background: #ffffff; padding: 30px; border-radius: 12px; border: 1px solid #eee; border-left: 6px solid #ff0000; color: #444; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+              <p style="white-space: pre-wrap; margin: 0; font-size: 1.1em; line-height: 1.7;">{description}</p>
+            </div>
+            
           </div>
-
-          {entry.summary}
-
-          ---
-          [📺 Watch on Youtube]({entry.link})
           """
-                  # Escribimos el archivo asegurándonos de que no haya sangrías extrañas al inicio
                   with open(filepath, "w", encoding="utf-8") as f:
                       f.write(content.strip())
-                  print(f"Post generado con éxito: {filename}")
 
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Corrección de miniaturas y formato de posts" || exit 0
+          git commit -m "Posts limpios: Miniatura-Link sin duplicados" || exit 0
           git push
