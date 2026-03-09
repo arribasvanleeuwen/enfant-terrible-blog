@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: page
 title: "Daily videos about upcoming videogames"
 ---
 
