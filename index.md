@@ -1,17 +1,31 @@
-<style>
-  a { color: #FF0B55 !important; }
-  .post-link { color: #FF0B55 !important; font-weight: bold; font-size: 1.5rem; }
-  .subscribe-btn { background-color: #FF0B55 !important; }
-  .site-header { background-color: #0f0f0f !important; border-bottom: 1px solid #2f2f2f; }
-  body { background-color: #0f0f0f !important; color: #f1f1f1 !important; }
-  .post-list > li { background: #1e1e1e; border: 1px solid #2f2f2f; border-radius: 12px; padding: 20px; margin-bottom: 20px; list-style: none; }
-  .post-list > li:hover { border-color: #FF0B55; }
-</style>
 
 ---
 layout: home
 title: Home
 ---
+
+<style>
+  /* Force Pink Theme #FF0B55 */
+  a { color: #FF0B55 !important; }
+  .post-link { color: #FF0B55 !important; font-weight: bold !important; font-size: 1.5rem !important; }
+  .subscribe-btn { background-color: #FF0B55 !important; color: white !important; }
+  .site-header { background-color: #0f0f0f !important; border-bottom: 1px solid #2f2f2f !important; }
+  body { background-color: #0f0f0f !important; color: #f1f1f1 !important; }
+  
+  /* Modern Post Cards */
+  .post-list { margin-top: 30px; padding: 0; }
+  .post-list > li { 
+    background: #1e1e1e !important; 
+    border: 1px solid #2f2f2f !important; 
+    border-radius: 12px !important; 
+    padding: 25px !important; 
+    margin-bottom: 20px !important; 
+    list-style: none !important;
+    transition: transform 0.2s ease;
+  }
+  .post-list > li:hover { border-color: #FF0B55 !important; transform: translateY(-3px); }
+  .post-meta { color: #888 !important; display: block; margin-bottom: 8px; }
+</style>
 
 # 📺 Youtube Channel
 Welcome! We make daily videos about upcoming videogames.
