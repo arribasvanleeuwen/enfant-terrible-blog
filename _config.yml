@@ -2,9 +2,12 @@ title: "ENFANT TERRIBLE"
 description: "Top Best New Upcoming Insane Ultra Realistic Next Gen Graphics Unreal Engine 5 Unity 6 Games - Trailers, Gameplay, Tech Demos, Previews, First Look, Youtube Channel 2026"
 remote_theme: jekyll/minima
 
+theme: minima
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-remote-theme
   
 minima:
   skin: dark
