@@ -1,33 +1,30 @@
 <style>
-  /* 1. Fondo y Texto General */
-  body { background-color: #0f0f0f !important; color: #f1f1f1 !important; }
-  
-  /* 2. Título Principal (Blanco) */
-  .post-list-heading, .page-heading, h1, .site-title { color: #ffffff !important; }
+  /* 1. Recuperar el color de texto del tema pero asegurar que los títulos se vean */
+  h1, h2, .post-list-heading, .site-title {
+    color: #ffffff !important;
+  }
 
-  /* 3. Enlaces y Títulos de Posts (Rosa) */
-  a, .post-link { color: #FF0B55 !important; text-decoration: none !important; }
+  /* 2. Tus detalles en Rosa #FF0B55 */
+  a, .post-link {
+    color: #FF0B55 !important;
+  }
 
-  /* 4. Cabecera y Footer */
-  .site-header, .site-footer { background-color: #0f0f0f !important; border-color: #2f2f2f !important; }
-
-  /* 5. EL BOTÓN (Fondo Negro, Borde Rosa, Texto Rosa) */
+  /* 3. El Botón con fondo del background (transparente) y borde rosa */
   .subscribe-btn {
-    background-color: #0f0f0f !important; /* Mismo que el fondo */
-    color: #FF0B55 !important;           /* Texto Rosa */
-    border: 2px solid #FF0B55 !important; /* Borde Rosa */
+    background-color: transparent !important;
+    color: #FF0B55 !important;
+    border: 2px solid #FF0B55 !important;
     padding: 6px 14px !important;
     border-radius: 6px !important;
     font-weight: bold !important;
     display: inline-block !important;
     text-transform: uppercase !important;
     font-size: 13px !important;
-    transition: 0.3s !important;
+    text-decoration: none !important;
   }
 
-  /* Efecto al pasar el ratón (opcional) */
   .subscribe-btn:hover {
-    background-color: #FF0B55 !important; /* Se vuelve rosa al pasar el ratón */
-    color: #0f0f0f !important;           /* El texto se vuelve negro */
+    background-color: #FF0B55 !important;
+    color: #111 !important;
   }
 </style>
