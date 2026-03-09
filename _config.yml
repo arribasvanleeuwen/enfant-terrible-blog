@@ -7,5 +7,7 @@ minima:
   social_links:
     - { platform: youtube, user_url: "https://youtube.com/@enfant-terrible" }
 
+youtube_username: enfant-terrible
+
 url: "https://www.enfant-terrible.media"
 baseurl: ""
