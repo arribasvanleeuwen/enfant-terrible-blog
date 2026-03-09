@@ -1,37 +1,84 @@
-name: Generate Posts from YouTube
+name: Create Individual YouTube Posts
 on:
   schedule:
     - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
-  update-posts:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Fetch YouTube Videos and Create Files
-        uses: gautamkrishnar/blog-post-workflow@master
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
-          custom_tags: "videoId/yt:videoId/"
-          readme_path: "./_posts/"
-          output_post_format: "markdown"
-          template: |
-            ---
-            layout: post
-            title: "$title"
-            date: $date
-            image: "$thumbnail"
-            ---
+          python-version: '3.x'
 
-            ![Portada de $title]($thumbnail)
+      - name: Install dependencies
+        run: pip install feedparser
 
-            <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
-              <iframe width="100%" height="400" src="https://www.youtube.com/embed/$videoId" frameborder="0" allowfullscreen></iframe>
-            </div>
+      - name: Generate Posts
+        shell: python
+        run: |
+          import feedparser
+          import os
+          import re
+          from datetime import datetime
 
-            ### 📝 Descripción del vídeo
-            $description
+          # Configuración
+          FEED_URL = "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
+          POSTS_DIR = "_posts"
 
-            ---
-            [📺 Watch on YouTube]($url)
+          if not os.path.exists(POSTS_DIR):
+              os.makedirs(POSTS_DIR)
+
+          feed = feedparser.parse(FEED_URL)
+
+          for entry in feed.entries:
+              # Extraer ID del video y datos
+              video_id = entry.yt_videoid
+              title = entry.title
+              published = entry.published_parsed
+              date_str = datetime(*published[:6]).strftime('%Y-%m-%d')
+              date_full = datetime(*published[:6]).strftime('%Y-%m-%d %H:%M:%S')
+              
+              # Crear nombre de archivo seguro
+              clean_title = re.sub(r'[^\w\s-]', '', title).strip().lower()
+              clean_title = re.sub(r'[-\s]+', '-', clean_title)
+              filename = f"{date_str}-{video_id}.md"
+              filepath = os.path.join(POSTS_DIR, filename)
+
+              # Solo crear el archivo si no existe
+              if not os.path.exists(filepath):
+                  content = f"""---
+          layout: post
+          title: "{title}"
+          date: {date_full}
+          thumbnail: "https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+          ---
+
+          ![Portada]({{'https://img.youtube.com/vi/' | append: '{video_id}' | append: '/maxresdefault.jpg'}})
+
+          <div class="video-container">
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          ### Descripción
+          {entry.summary}
+
+          [📺 Watch on YouTube]({entry.link})
+          """
+                  with open(filepath, "w", encoding="utf-8") as f:
+                      f.write(content)
+                  print(f"Creado post: {filename}")
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts/*.md
+          git commit -m "Nuevos videos de YouTube añadidos como posts" || exit 0
+          git push
