@@ -1,4 +1,4 @@
-name: YouTube Playlist to Posts
+name: Generate Posts from YouTube
 on:
   schedule:
     - cron: '0 * * * *'
@@ -9,16 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Fetch YouTube Videos
+      - name: Fetch YouTube Videos and Create Files
         uses: gautamkrishnar/blog-post-workflow@master
         with:
-          readme_path: "./index.md"
-          comment_tag_name: "BLOG-POST-LIST"
           feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
           custom_tags: "videoId/yt:videoId/"
+          readme_path: "./_posts/"
+          output_post_format: "markdown"
           template: |
-            <div style="margin-bottom: 30px;">
-              <h3>$title</h3>
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/$videoId" frameborder="0" allowfullscreen></iframe>
-              <p><a href="$url">📺 Watch</a> - $date</p>
+            ---
+            layout: post
+            title: "$title"
+            date: $date
+            image: "$thumbnail"
+            ---
+
+            ![Portada de $title]($thumbnail)
+
+            <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
+              <iframe width="100%" height="400" src="https://www.youtube.com/embed/$videoId" frameborder="0" allowfullscreen></iframe>
             </div>
+
+            ### 📝 Descripción del vídeo
+            $description
+
+            ---
+            [📺 Watch on YouTube]($url)
