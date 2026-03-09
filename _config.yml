@@ -1,4 +1,10 @@
-title: ENFANT TERRIBLE Blog
+title: ENFANT TERRIBLE
+description: "Daily videos about upcoming videogames"
 theme: minima
+
+minima:
+  social_links:
+    - { platform: youtube, user_url: "https://youtube.com/@enfant-terrible" }
+
 url: "https://www.enfant-terrible.media"
 baseurl: ""
