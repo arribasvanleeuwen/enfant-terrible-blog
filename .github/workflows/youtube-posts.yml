@@ -44,19 +44,18 @@ jobs:
 
           for entry in feed.entries:
               video_id = entry.yt_videoid
-              title = entry.title
+              title = entry.title.replace('"', '\\"') # Escapar comillas en el título
               published = entry.published_parsed
               date_str = datetime(*published[:6]).strftime('%Y-%m-%d')
               date_full = datetime(*published[:6]).strftime('%Y-%m-%d %H:%M:%S')
               
-              title_slug = slugify(title)
+              title_slug = slugify(entry.title)
               filename = f"{date_str}-{title_slug}.md"
               filepath = os.path.join(POSTS_DIR, filename)
 
-              # Solo creamos el post si no existe ya
               if not os.path.exists(filepath):
-                  # Usamos f-strings de Python para poner la URL de la imagen directamente
-                  thumb_url = f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+                  # Usamos hqdefault por si el video no tiene miniatura en máxima resolución
+                  thumb_url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
                   
                   content = f"""---
           layout: post
@@ -65,25 +64,26 @@ jobs:
           thumbnail: "{thumb_url}"
           ---
 
-          ![{title}]({thumb_url})
+          <img src="{thumb_url}" alt="{title}" style="width:100%; border-radius:10px; margin-bottom:20px;">
 
-          <div class="video-container" style="margin-top: 20px; margin-bottom: 25px;">
-            <iframe width="100%" height="450" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen style="border-radius:12px;"></iframe>
+          <div class="video-container" style="margin-bottom: 25px;">
+            <iframe width="100%" height="450" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen style="border-radius:12px; border:none;"></iframe>
           </div>
 
           {entry.summary}
 
           ---
-          [📺 Watch on YouTube]({entry.link})
+          [📺 Watch on Youtube]({entry.link})
           """
+                  # Escribimos el archivo asegurándonos de que no haya sangrías extrañas al inicio
                   with open(filepath, "w", encoding="utf-8") as f:
-                      f.write(content)
-                  print(f"Post generado: {filename}")
+                      f.write(content.strip())
+                  print(f"Post generado con éxito: {filename}")
 
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Añadidos videos con miniatura corregida y SEO" || exit 0
+          git commit -m "Corrección de miniaturas y formato de posts" || exit 0
           git push
