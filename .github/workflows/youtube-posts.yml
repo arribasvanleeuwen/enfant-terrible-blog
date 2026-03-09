@@ -1,0 +1,28 @@
+name: YouTube Playlist to Posts
+on:
+  schedule:
+    - cron: '0 * * * *' # Se ejecuta cada hora
+  workflow_dispatch: # Permite ejecutarlo a mano para probar
+
+jobs:
+  update-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch YouTube Videos
+        uses: gautamkrishnar/blog-post-workflow@master
+        with:
+          feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PL7nodL-Tlw8XoChvA8Db7rRCSjd39Mv_M"
+          custom_tags: "videoId/yt:videoId/"
+          template: |
+            ---
+            layout: post
+            title: "$title"
+            date: $date
+            ---
+            
+            # $title
+            
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/$videoId" frameborder="0" allowfullscreen></iframe>
+            
+            [📺 Watch]($url)
