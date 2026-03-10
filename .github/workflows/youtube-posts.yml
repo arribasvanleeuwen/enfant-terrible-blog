@@ -83,18 +83,25 @@ jobs:
                       p = p.strip()
                       if not p: continue
                       
-                      # DETECCIÓN DE WIDGET DE STEAM
-                      steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
-                      
+                      # 1. TÍTULOS DESTACADOS (H3 en lugar de H2, más pequeños)
                       if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
-                          p_html = f'<h2 style="color: #111; margin-top: 45px; border-bottom: 3px solid {rosa_web}; padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">{p}</h2>'
-                      elif steam_match:
-                          # Si encuentra link de Steam, pone el IFRAME oficial
-                          game_id = steam_match.group(1)
-                          p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 25px 0; border-radius: 8px;"></iframe>'
+                          p_html = f'<h3 style="color: #ffffff; margin-top: 35px; border-bottom: 2px solid {rosa_web}; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; font-size: 1.3em;">{p}</h3>'
+                      
+                      # 2. CAJA DE SUMARIO (Gris oscuro, texto blanco, tamaño normal)
                       elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
                           summary_text = p.replace('"', "'").replace('\n', ' ')
-                          p_html = f'<div style="background: #FFFafa; border-left: 6px solid {rosa_web}; padding: 25px; margin: 30px 0; border-radius: 8px; color: #222; font-style: italic; font-size: 1.15em;">{p}</div>'
+                          p_html = f'<div style="background: #1a1a1a; border-left: 5px solid {rosa_web}; padding: 20px; margin: 25px 0; border-radius: 6px; color: #ffffff; font-style: italic; font-size: 1em; line-height: 1.6;">{p}</div>'
+                      
+                      # 3. WIDGET DE STEAM (Detección automática)
+                      elif "store.steampowered.com/app/" in p:
+                          steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
+                          if steam_match:
+                              game_id = steam_match.group(1)
+                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 25px 0; border-radius: 8px;"></iframe>'
+                          else:
+                              p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
+                      
+                      # 4. TEXTO NORMAL Y OTROS LINKS
                       else:
                           p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                           p_html = p_html.replace('\n', '<br>')
@@ -131,5 +138,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post update with Steam Widget" || exit 0
+          git commit -m "Auto-post: Steam widget and UI refactoring" || exit 0
           git push
