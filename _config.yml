@@ -1,7 +1,19 @@
-remote_theme: jekyll/minima
+# Configuración Principal
 title: "ENFANT TERRIBLE"
+description: "Visual culture, deep dives, and editorial insights. The written extension of the ENFANT TERRIBLE gaming channel." # Añade una descripción breve
+url: "https://www.enfant-terrible.media" # Importante para que el RSS sepa su dirección
+baseurl: "" 
+
+# Apariencia
+remote_theme: jekyll/minima
 minima:
   skin: dark
+
+# Plugins
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
+
+# Configuración del Feed (Añade esto para que se genere en la raíz)
+feed:
+  path: /feed.xml
