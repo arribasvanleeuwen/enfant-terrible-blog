@@ -18,7 +18,7 @@
     color: #ffffff !important;
   }
 
-  /* 2. SUBTÍTULOS H2 Y H3 */
+  /* 2. SUBTÍTULOS H2 Y H3 (DENTRO DE POSTS) */
   .post-content h2, .description-container h2 {
     color: #ffffff !important;
     border-bottom: 2px solid #FF0B55 !important;
@@ -36,26 +36,25 @@
     font-weight: 700 !important;
   }
 
-  /* 3. ESTRUCTURA DE LA HOME - CORREGIDA */
+  /* 3. ESTRUCTURA DE LA HOME (MINIATURA Y TEXTO ALINEADOS) */
   .post-card {
     display: flex !important;
-    flex-direction: row !important; /* Fuerza la posición horizontal */
     gap: 25px !important;
     margin-bottom: 40px !important;
     padding-bottom: 30px !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
     align-items: flex-start !important;
-    width: 100% !important;
   }
 
   .post-excerpt-container {
-    display: block !important;
-    flex: 1 1 auto !important; /* Fuerza al texto a expandirse */
+    flex: 1 !important;
   }
 
   .post-thumb {
-    flex: 0 0 220px !important; /* Mantiene la miniatura en su sitio */
+    flex-shrink: 0 !important;
+    width: 220px !important;
     margin-top: 5px !important;
+    line-height: 0 !important;
   }
 
   .post-thumb img {
