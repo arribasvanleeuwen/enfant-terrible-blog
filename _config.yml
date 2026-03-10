@@ -8,19 +8,14 @@ baseurl: ""
 remote_theme: jekyll/minima
 minima:
   skin: dark
-  # ESTO ES LO QUE FALTA: Minima busca las redes aquí dentro
-  social_links:
-    twitter: EnfantTerribleM
-    # rss: rss (se activa solo con jekyll-feed)
 
-# --- PLUGINS ---
+# --- REDES SOCIALES (Sintaxis compatible) ---
+twitter_username: EnfantTerribleM
+# El feed se genera automáticamente por el plugin
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
 
-# --- FEED ---
+# --- CONFIGURACIÓN DEL FEED ---
 feed:
   path: /feed.xml
-
-# Variable personalizada para el CSS
-copyright_name: "ENFANT TERRIBLE"
