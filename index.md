@@ -3,31 +3,30 @@ layout: page
 ---
 
 <style>
-  /* 1. ELIMINAR EL FOOTER DOBLE Y ELEMENTOS EXTRA */
-  .site-footer { display: none !important; } /* Matamos el footer oficial de Minima */
-  .page-heading { display: none !important; } /* Evitamos que el título se duplique */
+  /* 1. DISEÑO DE POSTS (TU ESTRUCTURA ORIGINAL) */
+  .post-card { display: flex; gap: 25px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); align-items: flex-start; }
+  .post-thumb { width: 220px; flex-shrink: 0; }
+  .post-thumb img { width: 100%; border-radius: 8px; display: block; }
+  .post-card h3 a { color: #FF0B55 !important; text-decoration: none; font-size: 22px; font-weight: bold; }
+  .excerpt-text { color: #bbbbbb; font-size: 15px; }
 
-  /* 2. DISEÑO DE POSTS (LO QUE TE GUSTABA) */
-  .post-card { display: flex !important; gap: 25px !important; margin-bottom: 40px !important; align-items: flex-start !important; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-  .post-thumb { width: 220px !important; flex-shrink: 0 !important; }
-  .post-thumb img { width: 100% !important; border-radius: 8px !important; display: block !important; }
-  .post-content { flex-grow: 1 !important; }
-  .post-card h3 a { color: #FF0B55 !important; text-decoration: none !important; font-size: 22px !important; font-weight: bold !important; }
-  .excerpt-text { color: #bbbbbb !important; font-size: 15px !important; }
+  /* 2. PERSONALIZACIÓN DEL FOOTER ORIGINAL DE MINIMA */
+  /* Así mantenemos el mismo footer en toda la web pero con tu marca */
+  .footer-col-1 .footer-heading { display: none !important; }
+  .footer-col-1::before { content: "© 2026 ENFANT TERRIBLE"; color: #ffffff; font-weight: bold; }
 
-  /* 3. TU NUEVO FOOTER (ÚNICO) */
-  .custom-footer { margin-top: 50px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center; }
-  .foot-copy { color: #ffffff; font-weight: bold; }
-  .foot-email::before { content: "enfante.terrible777" "\0040" "gmail.com"; color: #FF0B55; font-weight: bold; }
-  .foot-social a { color: #FF0B55; text-decoration: none; font-weight: bold; text-transform: uppercase; }
+  .footer-col-2 .footer-heading, .footer-col-2 .contact-list { display: none !important; }
+  .footer-col-2::before { content: "enfante.terrible777" "\0040" "gmail.com"; color: #FF0B55; font-weight: bold; }
+
+  .social-media-list li a, .social-media-list li a .svg-icon { fill: #FF0B55 !important; color: #FF0B55 !important; }
 
   @media (max-width: 600px) {
-    .post-card, .custom-footer { flex-direction: column !important; text-align: center !important; }
-    .post-thumb { width: 100% !important; max-width: 320px !important; margin: 0 auto !important; }
+    .post-card { flex-direction: column; text-align: center; }
+    .post-thumb { width: 100%; max-width: 320px; margin: 0 auto; }
   }
 </style>
 
-<h1 style="color: #ffffff; margin-bottom: 30px;">Latest Insights</h1>
+<h1 class="post-list-heading" style="color: #ffffff;">Latest Insights</h1>
 
 {% for post in site.posts %}
   <div class="post-card">
@@ -44,11 +43,4 @@ layout: page
     </div>
   </div>
 {% endfor %}
-
-<footer class="custom-footer">
-  <div class="foot-copy">© 2026 ENFANT TERRIBLE</div>
-  <div class="foot-email"></div>
-  <div class="foot-social">
-    <a href="https://x.com/EnfantTerrible7" target="_blank">X (Twitter)</a>
-  </div>
 </footer>
