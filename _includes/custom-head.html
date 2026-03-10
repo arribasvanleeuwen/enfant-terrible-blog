@@ -36,27 +36,26 @@
     font-weight: 700 !important;
   }
 
-  /* 3. ESTRUCTURA DE LA HOME */
+  /* 3. ESTRUCTURA DE LA HOME - CORREGIDA */
   .post-card {
     display: flex !important;
+    flex-direction: row !important; /* Fuerza la posición horizontal */
     gap: 25px !important;
     margin-bottom: 40px !important;
     padding-bottom: 30px !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
     align-items: flex-start !important;
-    width: 100% !important; /* Esto asegura que la tarjeta ocupe todo el ancho */
+    width: 100% !important;
   }
 
   .post-excerpt-container {
-    flex: 1 !important;
-    min-width: 0 !important;
+    display: block !important;
+    flex: 1 1 auto !important; /* Fuerza al texto a expandirse */
   }
-  
+
   .post-thumb {
-    flex-shrink: 0 !important;
-    width: 220px !important;
+    flex: 0 0 220px !important; /* Mantiene la miniatura en su sitio */
     margin-top: 5px !important;
-    line-height: 0 !important;
   }
 
   .post-thumb img {
@@ -95,9 +94,6 @@
     .post-thumb { 
       width: 100% !important; 
       max-width: 350px !important;
-    }
-    iframe[src*="steampowered.com/widget"] {
-      width: 100% !important;
     }
   }
 </style>
