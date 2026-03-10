@@ -8,12 +8,10 @@ baseurl: ""
 remote_theme: jekyll/minima
 minima:
   skin: dark
-  social_links:
-    twitter: EnfantTerribleM
-    rss: rss
 
-# Esto hará que el email no aparezca de forma automática y fea
-email: 
+twitter_username: EnfantTerrible7
+# Esto suele activar el icono de RSS automáticamente en Minima
+show_excerpts: true 
 
 plugins:
   - jekyll-remote-theme
