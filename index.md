@@ -43,4 +43,3 @@ layout: page
     </div>
   </div>
 {% endfor %}
-</footer>
