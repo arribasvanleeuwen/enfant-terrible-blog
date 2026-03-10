@@ -1,19 +1,28 @@
-# Configuración Principal
+# --- CONFIGURACIÓN PRINCIPAL ---
 title: "ENFANT TERRIBLE"
-description: "The definitive source for ultra realistic next-gen graphics. Expert analysis on Unreal Engine 5, Unity 6, the most insane tech demos, and upcoming game previews. The written extension of ENFANT TERRIBLE's gaming channel." # Añade una descripción breve
-url: "https://www.enfant-terrible.media" # Importante para que el RSS sepa su dirección
-baseurl: "" 
+description: "The definitive source for ultra-realistic next-gen graphics. Expert analysis on Unreal Engine 5, Unity 6, and 2026's most insane tech demos, gameplay previews, and trailers."
+url: "https://www.enfant-terrible.media"
+baseurl: "" # Déjalo vacío para el dominio principal
 
-# Apariencia
+# --- APARIENCIA (TEMA) ---
 remote_theme: jekyll/minima
 minima:
   skin: dark
 
-# Plugins
+# --- REDES SOCIALES (FOOTER NATIVO) ---
+# Al poner esto, Minima genera automáticamente el icono de X y el enlace
+twitter_username: EnfantTerribleM 
+
+# --- PLUGINS ---
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
 
-# Configuración del Feed (Añade esto para que se genere en la raíz)
+# --- CONFIGURACIÓN DEL FEED RSS ---
 feed:
   path: /feed.xml
+
+# --- EXTRAS PARA EL FOOTER ---
+# No ponemos el email aquí para que el robot de Minima no lo escriba en texto plano.
+# Usaremos el truco del CSS en custom-head para mostrarlo de forma segura.
+copyright: "© 2026 ENFANT TERRIBLE"
