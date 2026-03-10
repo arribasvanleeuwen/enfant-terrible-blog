@@ -67,4 +67,20 @@
     }
     .post-thumb { width: 100%; }
   }
+  /* --- AJUSTE FINAL DE ALINEACIÓN (Solo para la Home) --- */
+  .post-card {
+    display: flex !important;
+    align-items: flex-start !important; /* Fuerza el inicio arriba */
+  }
+
+  .post-thumb {
+    margin-top: 4px !important; /* Baja la imagen unos píxeles para que coincida con la altura de la letra */
+    line-height: 0 !important;
+  }
+
+  .post-card h3 {
+    margin-top: 0 !important; /* Elimina el espacio que empuja el texto hacia abajo */
+    padding-top: 0 !important;
+  }
+  /* ------------------------------------------------------ */
 </style>
