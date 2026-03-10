@@ -1,6 +1,6 @@
 # Configuración Principal
 title: "ENFANT TERRIBLE"
-description: "Editorial insights on next-gen graphics and game technology. The written extension of ENFANT TERRIBLE's gaming channel." # Añade una descripción breve
+description: "The definitive source for ultra realistic next-gen graphics. Expert analysis on Unreal Engine 5, Unity 6, the most insane tech demos, and upcoming game previews. The written extension of ENFANT TERRIBLE's gaming channel." # Añade una descripción breve
 url: "https://www.enfant-terrible.media" # Importante para que el RSS sepa su dirección
 baseurl: "" 
 
