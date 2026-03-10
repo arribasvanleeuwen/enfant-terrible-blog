@@ -1,6 +1,6 @@
 # Configuración Principal
 title: "ENFANT TERRIBLE"
-description: "Visual culture, deep dives, and editorial insights. The written extension of the ENFANT TERRIBLE gaming channel." # Añade una descripción breve
+description: "Editorial insights on next-gen graphics and game technology. The written extension of ENFANT TERRIBLE's gaming channel." # Añade una descripción breve
 url: "https://www.enfant-terrible.media" # Importante para que el RSS sepa su dirección
 baseurl: "" 
 
