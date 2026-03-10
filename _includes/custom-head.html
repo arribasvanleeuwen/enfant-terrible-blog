@@ -18,7 +18,7 @@
     color: #ffffff !important; /* Blanco al pasar el ratón */
   }
 
-  /* 2. SUBTÍTULOS H2 DENTRO DE POSTS (Blanco con RAYA ROSA) */
+  /* 2. SUBTÍTULOS H2 DENTRO DE POSTS (Mantener si existen otros manuales) */
   .post-content h2 {
     color: #ffffff !important;
     border-bottom: 2px solid #FF0B55 !important;
@@ -33,14 +33,14 @@
     gap: 25px !important;
     margin-bottom: 40px !important;
     padding-bottom: 30px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important; /* Raya divisoria */
-    align-items: flex-start !important; /* Alineación superior */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    align-items: flex-start !important;
   }
 
   .post-thumb {
     flex-shrink: 0 !important;
     width: 220px !important;
-    margin-top: 5px !important; /* AJUSTE CRUCIAL: Alinea la foto con el texto */
+    margin-top: 5px !important;
     line-height: 0 !important;
   }
 
@@ -52,10 +52,10 @@
 
   /* 4. AJUSTE DE TÍTULO PARA ALINEACIÓN */
   .post-card h3 {
-    margin: 0 0 10px 0 !important; /* Quita el margen superior que descuadraba */
+    margin: 0 0 10px 0 !important;
   }
 
-  /* 5. COHERENCIA PARA POSTS SIN IMAGEN (Centrado) */
+  /* 5. COHERENCIA PARA POSTS SIN IMAGEN */
   .post-card:not(:has(.post-thumb)) {
     justify-content: center !important;
     text-align: center !important;
@@ -81,10 +81,25 @@
     .post-thumb { width: 100% !important; }
   }
 
-  /* 7. WIDGET DE STEAM (Ajuste visual) */
+  /* 7. WIDGET DE STEAM Y REFINAMIENTO DE H3 EN POSTS */
+  .description-container h3 {
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px !important;
+  }
+
   iframe[src*="steampowered.com/widget"] {
     margin: 30px 0 !important;
     display: block !important;
-    max-width: 646px !important; /* Ancho oficial del widget de Steam */
+    max-width: 646px !important;
     border-radius: 8px !important;
     background: #1b2838 !important;
+    border: none !important;
+  }
+
+  @media screen and (max-width: 650px) {
+    iframe[src*="steampowered.com/widget"] {
+      width: 100% !important;
+    }
+  }
+</style>
