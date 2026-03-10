@@ -48,7 +48,7 @@ jobs:
                   return max_res_url
               return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
 
-          # NUEVO: Recopilar los IDs de vídeos de YouTube que ya tienen un post
+          # 1. CONTROL DE DUPLICADOS POR ID
           existing_video_ids = set()
           for filename in os.listdir(POSTS_DIR):
               if filename.endswith(".md"):
@@ -63,7 +63,6 @@ jobs:
           for entry in feed.entries:
               video_id = entry.yt_videoid
               
-              # NUEVO: Si el vídeo ya existe en el blog, lo saltamos
               if video_id in existing_video_ids:
                   print(f"El vídeo {video_id} ya existe. Saltando...")
                   continue
@@ -77,16 +76,50 @@ jobs:
               filename = f"{date_str}-{title_slug}.md"
               filepath = os.path.join(POSTS_DIR, filename)
 
-              # Mantenemos esta comprobación por seguridad adicional
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
-                  description = entry.summary
-                  description = re.sub(r'(https?://[^\s]+)', r'<a href="\1" target="_blank" rel="noopener">\1</a>', description)
                   
-                  # Estilo de la etiqueta 4K (Dorado/Plateado)
+                  # ---------------------------------------------------------
+                  # PROCESAMIENTO DE LA DESCRIPCIÓN (Lógica de recorte)
+                  # ---------------------------------------------------------
+                  raw_description = entry.summary.strip()
+                  # Separamos por párrafos reales (doble salto de línea)
+                  paragraphs = re.split(r'\n\s*\n', raw_description)
+                  
+                  # REGLA: Eliminar 2 primeros y EL ÚLTIMO (1)
+                  if len(paragraphs) > 3:
+                      content_paragraphs = paragraphs[2:-1]
+                  else:
+                      content_paragraphs = paragraphs
+
+                  formatted_paragraphs = []
+                  rosa_web = "#FF0B55"
+
+                  for p in content_paragraphs:
+                      p = p.strip()
+                      if not p: continue
+
+                      # Títulos destacados (Emoji + Mayúsculas) -> h2
+                      if re.search(r'^[\U00010000-\U0010ffff].*[A-ZÁÉÍÓÚÑ]{2,}', p):
+                          p = f'<h2 style="color: #222; margin-top: 40px; border-bottom: 3px solid {rosa_web}; padding-bottom: 10px; font-weight: 800;">{p}</h2>'
+                      
+                      # Caja de resumen después de SUMMARY
+                      elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
+                          p = f'''<div style="background: rgba(255, 11, 85, 0.05); border-left: 6px solid {rosa_web}; padding: 20px; font-family: inherit; margin: 25px 0; border-radius: 4px; color: #333; font-style: italic; font-size: 1.1em;">
+                            {p}
+                          </div>'''
+                      
+                      else:
+                          # Enlaces rosas y saltos de línea internos
+                          p = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" rel="noopener" style="color: {rosa_web}; font-weight: bold; text-decoration: underline;">\\1</a>', p)
+                          p = p.replace('\n', '<br>')
+
+                      formatted_paragraphs.append(p)
+
+                  description = "\n\n".join(formatted_paragraphs)
+                  
                   badge_style = "font-size: 0.85em; font-weight: bold; opacity: 1; background: linear-gradient(135deg, #FFD700, #C0C0C0); color: #000; padding: 4px 12px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 3px rgba(0,0,0,0.2);"
 
-                  # NUEVO: Se añade 'youtube_id' al front matter
                   content = f"""---
           layout: post
           title: "{title}"
@@ -95,7 +128,7 @@ jobs:
           youtube_id: {video_id}
           ---
 
-          <div class="video-link-container" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+          <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             
             <a href="{entry.link}" target="_blank" rel="noopener" style="display: block; position: relative; text-decoration: none; overflow: hidden; border-radius: 18px; box-shadow: 0 12px 35px rgba(0,0,0,0.25); margin-bottom: 35px;">
               <img src="{thumb_url}" alt="{title}" style="width: 100%; display: block;">
@@ -111,7 +144,7 @@ jobs:
             </a>
 
             <div class="description-container" style="color: inherit; font-family: inherit;">
-              <p style="white-space: pre-wrap; margin: 0; font-size: 1.12em; line-height: 1.75;">{description}</p>
+              {description}
             </div>
             
           </div>
@@ -124,5 +157,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post desde YouTube con control de duplicados por ID" || exit 0
+          git commit -m "Auto-post: Recorte de 2 párrafos iniciales y 1 final" || exit 0
           git push
