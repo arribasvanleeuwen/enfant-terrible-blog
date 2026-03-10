@@ -1,131 +1,48 @@
 ---
-layout: page
+layout: default
 ---
 
 <style>
-  /* 1. CONTENEDOR PRINCIPAL DE POSTS */
-  .post-card {
-    display: flex !important;
-    gap: 25px !important;
-    margin-bottom: 40px !important;
-    padding-bottom: 30px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    align-items: flex-start !important;
-  }
+  /* 1. ARREGLO DE TÍTULO Y COLORES */
+  .site-title { color: #ffffff !important; }
+  .post-list-heading { color: #ffffff !important; font-size: 28px; margin-bottom: 30px; }
 
-  /* 2. MINIATURA (Solo si existe) */
-  .post-thumb {
-    flex-shrink: 0 !important;
-    width: 220px !important;
-  }
+  /* 2. ESTRUCTURA DE POSTS (CON IMAGEN IZQUIERDA) */
+  .post-card { display: flex; gap: 25px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); align-items: flex-start; }
+  .post-thumb { width: 220px; flex-shrink: 0; }
+  .post-thumb img { width: 100%; border-radius: 8px; display: block; }
+  .post-content { flex-grow: 1; }
+  .post-card h3 a { color: #FF0B55 !important; text-decoration: none; font-size: 22px; font-weight: bold; }
+  .excerpt-text { color: #bbbbbb; font-size: 15px; }
 
-  .post-thumb img {
-    width: 100% !important;
-    border-radius: 8px !important;
-    display: block !important;
-  }
+  /* 3. FOOTER PERSONALIZADO (SOBREESCRIBE AL DE MINIMA) */
+  .site-footer { border-top: 1px solid rgba(255,255,255,0.1) !important; padding: 40px 0 !important; }
+  .footer-col-wrapper { display: flex; justify-content: space-between; align-items: center; }
+  .footer-col-1::before { content: "© {{ 'now' | date: '%Y' }} ENFANT TERRIBLE"; color: #ffffff; font-weight: bold; }
+  .footer-col-2::before { content: "enfante.terrible777" "\0040" "gmail.com"; color: #FF0B55; font-weight: bold; }
+  .footer-col-1 .footer-heading, .footer-col-2 .contact-list, .footer-col-3 .footer-heading { display: none !important; }
+  .social-media-list li a { color: #FF0B55 !important; font-weight: bold; }
 
-  /* 3. TEXTO Y TÍTULOS */
-  .post-content {
-    flex-grow: 1 !important;
-  }
-
-  .post-card h3 {
-    margin: 0 0 10px 0 !important;
-  }
-
-  .post-card h3 a {
-    color: #FF0B55 !important;
-    text-decoration: none !important;
-    font-size: 22px !important;
-    font-weight: 700 !important;
-  }
-
-  .post-card h3 a:hover {
-    color: #ffffff !important;
-  }
-
-  .excerpt-text {
-    color: #bbbbbb !important;
-    font-size: 15px !important;
-    line-height: 1.5 !important;
-  }
-
-  /* 4. FOOTER FORZADO (Blanco y Rosa) */
-  .custom-footer {
-    margin-top: 60px !important;
-    padding: 40px 0 !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
-
-  .foot-copy {
-    color: #ffffff !important;
-    font-weight: bold !important;
-    font-size: 14px !important;
-  }
-
-  /* Email Invisible para Scrapers */
-  .foot-email::before {
-    content: "enfante.terrible777" "\0040" "gmail.com" !important;
-    color: #FF0B55 !important;
-    font-weight: bold !important;
-    font-size: 14px !important;
-  }
-
-  .foot-social a {
-    color: #FF0B55 !important;
-    text-decoration: none !important;
-    font-weight: bold !important;
-    font-size: 14px !important;
-    text-transform: uppercase !important;
-  }
-
-  .foot-social a:hover {
-    color: #ffffff !important;
-  }
-
-  /* 5. RESPONSIVE MÓVIL */
-  @media screen and (max-width: 600px) {
-    .post-card {
-      flex-direction: column !important;
-      align-items: center !important;
-      text-align: center !important;
-    }
-    .post-thumb { width: 100% !important; max-width: 320px !important; }
-    .custom-footer {
-      flex-direction: column !important;
-      gap: 20px !important;
-      text-align: center !important;
-    }
+  @media (max-width: 600px) {
+    .post-card, .footer-col-wrapper { flex-direction: column; text-align: center; }
+    .post-thumb { width: 100%; max-width: 320px; margin: 0 auto; }
   }
 </style>
+
+<h1 class="post-list-heading">Latest Insights</h1>
 
 {% for post in site.posts %}
   <div class="post-card">
     {% if post.image %}
     <div class="post-thumb">
       <a href="{{ post.url | relative_url }}">
-        <img src="{{ post.image }}" alt="{{ post.title }}">
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
       </a>
     </div>
     {% endif %}
-    
     <div class="post-content">
       <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-      <div class="excerpt-text">
-        {{ post.excerpt | strip_html | truncate: 160 }}
-      </div>
+      <div class="excerpt-text">{{ post.excerpt | strip_html | truncate: 160 }}</div>
     </div>
   </div>
 {% endfor %}
-
-<footer class="custom-footer">
-  <div class="foot-copy">© {{ 'now' | date: "%Y" }} ENFANT TERRIBLE</div>
-  <div class="foot-email"></div>
-  <div class="foot-social">
-    <a href="https://x.com/EnfantTerrible7" target="_blank">X (Twitter)</a>
-  </div>
-</footer>
