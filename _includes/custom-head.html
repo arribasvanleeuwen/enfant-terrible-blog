@@ -1,32 +1,40 @@
 <style>
-  /* 1. TÍTULO DEL INDEX (Blanco Puro) */
-  .post-list-heading, h1.page-heading {
+  /* 1. TÍTULO DEL INDEX Y TÍTULOS DE PÁGINAS (Blanco Puro) */
+  .post-list-heading, 
+  h1.page-heading, 
+  .site-header .site-title,
+  .post-header h1.post-title {
     color: #ffffff !important;
     font-size: 28px !important;
+    font-weight: 800 !important;
     margin-bottom: 30px !important;
-    font-weight: bold !important;
+    opacity: 1 !important;
   }
 
-  /* 2. TÍTULOS DE LOS POSTS EN LA HOME (Blanco Puro para que no sea gris) */
+  /* 2. TÍTULOS DE LOS POSTS EN LA HOME (Invertido: Rosa a Blanco) */
   .post-excerpt-container h3 a {
-    color: #ffffff !important; 
+    color: #FF0B55 !important; /* Rosa por defecto */
     text-decoration: none !important;
     font-size: 22px !important;
+    font-weight: 700 !important;
     display: block;
-    margin-top: 0 !important;
+    transition: color 0.2s ease;
   }
   
-  /* Efecto hover para los títulos de la home: se vuelven rosas al pasar el ratón */
   .post-excerpt-container h3 a:hover {
-    color: #FF0B55 !important;
+    color: #ffffff !important; /* Se vuelve blanco al pasar el ratón */
   }
 
-  /* 3. TÍTULOS H2 DENTRO DE LOS POSTS (Los destacados que ahora se ven negros) */
-  .post-content h2, .post-content h3 {
-    color: #FF0B55 !important;
+  /* 3. CONTENIDO DE LOS POSTS (H2 en Blanco Puro) */
+  .post-content h2, 
+  .post-content h3,
+  .post-content h4 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
     margin-top: 40px !important;
-    border-bottom: 1px solid rgba(255, 11, 85, 0.2);
-    padding-bottom: 5px;
+    margin-bottom: 15px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
   }
 
   /* 4. TARJETA DEL POST Y ALINEACIÓN */
@@ -53,18 +61,14 @@
     display: block;
   }
 
-  .post-excerpt-container {
-    flex: 1;
-  }
-
   .post-excerpt-container h3 {
     margin: 0 0 10px 0 !important;
   }
 
   .excerpt-text {
     font-size: 15px;
-    color: #bbb; /* El resumen queda en un gris suave para que resalte el título */
-    line-height: 1.4;
+    color: #bbbbbb !important; /* Gris suave para lectura, pero el título es blanco/rosa */
+    line-height: 1.5;
     margin: 0 0 10px 0 !important;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -73,9 +77,10 @@
   }
 
   .post-date {
-    color: #666;
+    color: #888888 !important;
     text-transform: uppercase;
     font-size: 0.75em;
+    font-weight: 600;
   }
 
   /* 5. BOTÓN SUBSCRIBE */
@@ -90,6 +95,7 @@
     font-size: 11px !important;
     text-decoration: none !important;
     display: inline-flex !important;
+    align-items: center;
   }
 
   /* 6. RESPONSIVE MÓVIL */
@@ -99,6 +105,9 @@
     }
     .post-thumb {
       width: 100%;
+    }
+    .post-list-heading {
+      font-size: 24px !important;
     }
   }
 </style>
