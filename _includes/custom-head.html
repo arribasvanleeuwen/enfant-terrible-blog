@@ -46,6 +46,12 @@
     align-items: flex-start !important;
   }
 
+  /* ARREGLO PARA POSTS MANUALES SIN MINIATURA */
+  .post-excerpt-container {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
   .post-thumb {
     flex-shrink: 0 !important;
     width: 220px !important;
@@ -83,47 +89,7 @@
     border: none !important;
   }
 
-  /* 5. FOOTER PERSONALIZADO Y PROTEGIDO */
-  .site-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-    background: transparent !important;
-    padding: 40px 0 !important;
-  }
-
-  .footer-col-wrapper {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
-
-  /* Copyright Izquierda */
-  .footer-col-1 .footer-heading { display: none !important; }
-  .footer-col-1::before {
-    content: "© {{ 'now' | date: '%Y' }} ENFANT TERRIBLE";
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 14px;
-  }
-
-  /* Email Centro (Oculto a bots) */
-  .footer-col-2 .footer-heading, .footer-col-2 .contact-list { display: none !important; }
-  .footer-col-2::before {
-    content: "contact" "\0040" "enfant-terrible.media";
-    color: #FF0B55;
-    font-weight: 700;
-    font-size: 14px;
-  }
-
-  /* Redes Derecha */
-  .footer-col-3 .svg-icon {
-    fill: #FF0B55 !important;
-  }
-
-  .footer-col-3 a:hover .svg-icon {
-    fill: #ffffff !important;
-  }
-
-  /* 6. AJUSTES MÓVILES */
+  /* 5. AJUSTES MÓVILES */
   @media screen and (max-width: 600px) {
     .post-card { 
       flex-direction: column !important; 
@@ -133,11 +99,6 @@
     .post-thumb { 
       width: 100% !important; 
       max-width: 350px !important;
-    }
-    .footer-col-wrapper {
-      flex-direction: column !important;
-      gap: 20px;
-      text-align: center;
     }
     iframe[src*="steampowered.com/widget"] {
       width: 100% !important;
