@@ -44,13 +44,14 @@
     padding-bottom: 30px !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
     align-items: flex-start !important;
+    width: 100% !important; /* Esto asegura que la tarjeta ocupe todo el ancho */
   }
 
-  /* ARREGLO PARA POSTS SIN MINIATURA */
   .post-excerpt-container {
     flex: 1 !important;
+    min-width: 0 !important;
   }
-
+  
   .post-thumb {
     flex-shrink: 0 !important;
     width: 220px !important;
