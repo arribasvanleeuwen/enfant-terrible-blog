@@ -3,6 +3,7 @@ layout: post
 title: "MONSTER HUNTER STORIES 3 Exclusive Final Review Gameplay | Most Captivating OPEN WORLD RPG of 2026"
 date: 2026-03-09 16:15:11
 thumbnail: "https://img.youtube.com/vi/0l_gJis2F3I/maxresdefault.jpg"
+youtube_id: 0l_gJis2F3I
 ---
 
 <div class="video-link-container" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
