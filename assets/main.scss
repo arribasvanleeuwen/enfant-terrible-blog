@@ -1,3 +1,85 @@
 ---
+# Front matter para que Jekyll procese el SCSS
 ---
-/* Archivo vacío para evitar errores de compilación */
+@import "minima";
+
+/* 1. ARREGLO DE POSTS (Para que si no hay imagen, el texto no se vaya a la izquierda) */
+.post-card {
+  display: flex !important;
+  gap: 25px !important;
+  margin-bottom: 40px !important;
+  align-items: flex-start !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+  padding-bottom: 20px !important;
+}
+
+.post-thumb {
+  width: 220px !important;
+  flex-shrink: 0 !important;
+}
+
+.post-thumb img {
+  width: 100% !important;
+  border-radius: 8px !important;
+  display: block !important;
+}
+
+.post-excerpt-container {
+  flex: 1 !important; /* Esto hace que el texto ocupe todo el ancho si no hay thumb */
+  min-width: 0 !important;
+}
+
+.post-excerpt-container h3 a {
+  color: #FF0B55 !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  font-size: 22px !important;
+}
+
+.excerpt-text {
+  color: #bbbbbb !important;
+  font-size: 15px !important;
+}
+
+.post-date {
+  color: #888 !important;
+}
+
+/* 2. EL FOOTER GLOBAL (Para toda la web) */
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.1) !important;
+  padding: 40px 0 !important;
+}
+
+/* Izquierda: Copyright */
+.footer-col-1 .footer-heading { display: none !important; }
+.footer-col-1::before { 
+  content: "© 2026 ENFANT TERRIBLE"; 
+  color: #ffffff; 
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Centro: Email Rosa Anti-Spam */
+.footer-col-2 .footer-heading, .footer-col-2 .contact-list { display: none !important; }
+.footer-col-2::before { 
+  content: "contact" "\0040" "enfant-terrible.media"; 
+  color: #FF0B55; 
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Derecha: Iconos X y RSS en Rosa */
+.footer-col-3 .footer-heading { display: none !important; }
+.social-media-list li a { 
+  color: #FF0B55 !important; 
+}
+.svg-icon { 
+  fill: #FF0B55 !important; 
+}
+
+/* Ajuste móvil */
+@media (max-width: 600px) {
+  .post-card { flex-direction: column !important; text-align: center !important; }
+  .post-thumb { width: 100% !important; max-width: 320px !important; margin: 0 auto !important; }
+}
