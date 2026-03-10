@@ -48,7 +48,6 @@ jobs:
                   return max_res_url
               return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
 
-          # 1. CONTROL DE DUPLICADOS POR ID
           existing_video_ids = set()
           for filename in os.listdir(POSTS_DIR):
               if filename.endswith(".md"):
@@ -62,107 +61,68 @@ jobs:
 
           for entry in feed.entries:
               video_id = entry.yt_videoid
-              
               if video_id in existing_video_ids:
-                  print(f"El vídeo {video_id} ya existe. Saltando...")
                   continue
 
               title = entry.title.replace('"', '\\"')
               published = entry.published_parsed
               date_str = datetime(*published[:6]).strftime('%Y-%m-%d')
               date_full = datetime(*published[:6]).strftime('%Y-%m-%d %H:%M:%S')
-              
-              title_slug = slugify(entry.title)
-              filename = f"{date_str}-{title_slug}.md"
-              filepath = os.path.join(POSTS_DIR, filename)
+              filepath = os.path.join(POSTS_DIR, f"{date_str}-{slugify(entry.title)}.md")
 
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
-                  
-                  # ---------------------------------------------------------
-                  # PROCESAMIENTO MEJORADO DE LA DESCRIPCIÓN
-                  # ---------------------------------------------------------
-                  raw_description = entry.summary.strip()
-                  paragraphs = re.split(r'\n\s*\n', raw_description)
-                  
-                  if len(paragraphs) > 3:
-                      content_paragraphs = paragraphs[2:-1]
-                  else:
-                      content_paragraphs = paragraphs
+                  paragraphs = re.split(r'\n\s*\n', entry.summary.strip())
+                  content_paragraphs = paragraphs[2:-1] if len(paragraphs) > 3 else paragraphs
 
                   formatted_paragraphs = []
                   rosa_web = "#FF0B55"
-                  summary_text = "" # Variable para guardar el texto de la home
+                  summary_text = ""
 
                   for p in content_paragraphs:
                       p = p.strip()
                       if not p: continue
-
-                      # MEJORA EN DETECCIÓN DE H2
                       if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
-                          p_processed = f'<h2 style="color: #111; margin-top: 45px; border-bottom: 3px solid {rosa_web}; padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">{p}</h2>'
-                      
-                      # MEJORA EN CAJA DE RESUMEN
+                          p_html = f'<h2 style="color: #111; margin-top: 45px; border-bottom: 3px solid {rosa_web}; padding-bottom: 10px; font-weight: 800; text-transform: uppercase;">{p}</h2>'
                       elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
-                          summary_text = p # Guardamos el texto antes de meterle el HTML
-                          p_processed = f'''<div style="background: #FFFafa; border-left: 6px solid {rosa_web}; padding: 25px; font-family: inherit; margin: 30px 0; border-radius: 8px; color: #222; font-style: italic; font-size: 1.15em; line-height: 1.6; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                            {p}
-                          </div>'''
-                      
+                          summary_text = p.replace('"', "'").replace('\n', ' ')
+                          p_html = f'<div style="background: #FFFafa; border-left: 6px solid {rosa_web}; padding: 25px; margin: 30px 0; border-radius: 8px; color: #222; font-style: italic; font-size: 1.15em;">{p}</div>'
                       else:
-                          # Enlaces y formato de texto normal
-                          p_processed = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" rel="noopener" style="color: {rosa_web}; font-weight: bold; text-decoration: underline;">\\1</a>', p)
-                          p_processed = p_processed.replace('\n', '<br>')
-
-                      formatted_paragraphs.append(p_processed)
+                          p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
+                          p_html = p_html.replace('\n', '<br>')
+                      formatted_paragraphs.append(p_html)
 
                   description = "\n\n".join(formatted_paragraphs)
-
-                  # Limpiar summary_text para que no rompa el archivo
-                  summary_text = summary_text.replace('"', "'").replace('\n', ' ')
-                  if len(summary_text) > 160:
-                      summary_text = summary_text[:157] + "..."
+                  if len(summary_text) > 160: summary_text = summary_text[:157] + "..."
                   
-                  badge_style = "font-size: 0.85em; font-weight: bold; opacity: 1; background: linear-gradient(135deg, #FFD700, #C0C0C0); color: #000; padding: 4px 12px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 3px rgba(0,0,0,0.2);"
+                  badge_style = "font-size: 0.85em; font-weight: bold; background: #FFD700; color: #000; padding: 4px 12px; border-radius: 4px;"
 
-                  # ESCRIBIR EL ARCHIVO CON EL EXCERPT
-                  content = f"""---
-layout: post
-title: "{title}"
-date: {date_full}
-thumbnail: "{thumb_url}"
-youtube_id: {video_id}
-excerpt: "{summary_text}"
----
+                  post_content = f"""---
+          layout: post
+          title: "{title}"
+          date: {date_full}
+          thumbnail: "{thumb_url}"
+          youtube_id: {video_id}
+          excerpt: "{summary_text}"
+          ---
 
-<div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-  
-  <a href="{entry.link}" target="_blank" rel="noopener" style="display: block; position: relative; text-decoration: none; overflow: hidden; border-radius: 18px; box-shadow: 0 12px 35px rgba(0,0,0,0.25); margin-bottom: 35px;">
-    <img src="{thumb_url}" alt="{title}" style="width: 100%; display: block;">
-    
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85px; height: 85px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(0,0,0,0.4);">
-      <div style="width: 0; height: 0; border-top: 16px solid transparent; border-bottom: 16px solid transparent; border-left: 28px solid white; margin-left: 6px;"></div>
-    </div>
-    
-    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 22px 28px; color: white; font-weight: bold; font-size: 1.15em; display: flex; align-items: center; justify-content: space-between;">
-      <span>Watch on YouTube</span>
-      <span style="{badge_style}">4K</span>
-    </div>
-  </a>
-
-  <div class="description-container" style="color: inherit; font-family: inherit;">
-    {description}
-  </div>
-  
-</div>
-"""
+          <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: sans-serif;">
+            <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 18px; overflow: hidden; margin-bottom: 35px;">
+              <img src="{thumb_url}" style="width: 100%; display: block;">
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>
+              </div>
+            </a>
+            <div class="description-container">{description}</div>
+          </div>
+          """
                   with open(filepath, "w", encoding="utf-8") as f:
-                      f.write(content.strip())
+                      f.write(post_content.strip())
 
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post: Actualización de diseño y extracto para home" || exit 0
+          git commit -m "Auto-post update" || exit 0
           git push
