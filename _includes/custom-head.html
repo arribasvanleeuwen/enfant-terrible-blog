@@ -1,18 +1,30 @@
 <style>
-  /* 1. TÍTULOS PRINCIPALES (Blanco Puro y Sin Rayas) */
-  .post-list-heading, .page-heading, .post-title {
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    border: none !important; /* Aquí NO queremos rayas */
-    margin-bottom: 30px !important;
+  /* 1. RAYAS DIVISORIAS ENTRE POSTS EN LA HOME */
+  .post-card {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important; /* Raya recuperada */
+    align-items: flex-start;
+    width: 100%;
   }
 
-  /* 2. TÍTULOS DE POSTS EN HOME (Rosa -> Blanco al pasar el ratón) */
-  .post-card h3 {
-    margin: 0 0 10px 0 !important;
-    border: none !important; /* Sin subrayado en el título */
+  /* 2. COHERENCIA CUANDO NO HAY IMAGEN (Centrado) */
+  .post-card:not(:has(.post-thumb)) {
+    justify-content: center;
+    text-align: center;
   }
-  
+
+  .post-card:not(:has(.post-thumb)) .post-excerpt-container {
+    max-width: 800px; /* Evita que el texto se estire demasiado y sea difícil de leer */
+  }
+
+  .post-card:not(:has(.post-thumb)) .excerpt-text {
+    -webkit-line-clamp: unset; /* Permitimos más texto si es solo editorial */
+  }
+
+  /* 3. TÍTULOS EN HOME (Rosa -> Blanco al pasar el ratón) */
   .post-card h3 a {
     color: #FF0B55 !important;
     text-decoration: none !important;
@@ -24,27 +36,7 @@
     color: #ffffff !important;
   }
 
-  /* 3. SUBTÍTULOS H2 DENTRO DE POSTS (Blanco con RAYA ROSA debajo) */
-  .post-content h2 {
-    color: #ffffff !important;
-    font-size: 1.5em !important;
-    margin-top: 40px !important;
-    margin-bottom: 20px !important;
-    padding-bottom: 10px !important;
-    border-bottom: 2px solid #FF0B55 !important; /* LA RAYA ROSA QUE TE GUSTABA */
-  }
-
-  /* 4. SEPARACIÓN DE POSTS EN LA HOME (RAYA DIVISORIA) */
-  .post-card {
-    display: flex;
-    gap: 25px;
-    margin-bottom: 40px;
-    padding-bottom: 30px;
-    align-items: flex-start;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; /* LA RAYA ENTRE POSTS */
-  }
-
-  /* 5. MINIATURA Y TEXTO */
+  /* 4. ESTRUCTURA CON IMAGEN */
   .post-thumb {
     flex-shrink: 0;
     width: 220px;
@@ -58,7 +50,7 @@
 
   .excerpt-text {
     color: #bbbbbb !important;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -66,19 +58,13 @@
     overflow: hidden;
   }
 
-  .post-date {
-    color: #666 !important;
-    font-size: 0.8em;
-    text-transform: uppercase;
-  }
-
-  /* 6. RESPONSIVE MÓVIL */
+  /* 5. RESPONSIVE MÓVIL */
   @media screen and (max-width: 600px) {
     .post-card { 
       flex-direction: column; 
-      gap: 15px;
+      align-items: center; 
+      text-align: center;
     }
     .post-thumb { width: 100%; }
-    .post-list-heading { font-size: 24px !important; }
   }
 </style>
