@@ -1,4 +1,3 @@
-# --- CONFIGURACIÓN PRINCIPAL ---
 title: "ENFANT TERRIBLE"
 description: "The definitive source for ultra-realistic next-gen graphics. Expert analysis on Unreal Engine 5, Unity 6, and 2026's most insane tech demos, gameplay previews, and trailers."
 url: "https://www.enfant-terrible.media"
@@ -8,11 +7,11 @@ baseurl: ""
 remote_theme: jekyll/minima
 minima:
   skin: dark
+  social_links:
+    twitter: EnfantTerribleM
+    rss: rss
 
-twitter_username: EnfantTerrible7
-# Esto suele activar el icono de RSS automáticamente en Minima
-show_excerpts: true 
-
+# --- PLUGINS ---
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
