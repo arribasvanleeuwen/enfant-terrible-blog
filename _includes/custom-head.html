@@ -1,30 +1,33 @@
 <style>
-  /* 1. Recuperar el color de texto del tema pero asegurar que los títulos se vean */
+  /* 1. Títulos en blanco para que resalten sobre el fondo oscuro del tema */
   h1, h2, .post-list-heading, .site-title {
     color: #ffffff !important;
   }
 
-  /* 2. Tus detalles en Rosa #FF0B55 */
-  a, .post-link {
+  /* 2. Color rosa corporativo para enlaces de texto (evitando el botón y el logo) */
+  .post-link, .post-content a {
     color: #FF0B55 !important;
   }
 
-  /* 3. El Botón con fondo del background (transparente) y borde rosa */
+  /* 3. Estilo del botón (limpio y sin interferir en la alineación) */
   .subscribe-btn {
-    background-color: transparent !important;
-    color: #FF0B55 !important;
-    border: 2px solid #FF0B55 !important;
-    padding: 6px 14px !important;
-    border-radius: 6px !important;
-    font-weight: bold !important;
-    display: inline-block !important;
-    text-transform: uppercase !important;
-    font-size: 13px !important;
-    text-decoration: none !important;
+    background-color: #FF0B55 !important;
+    color: #ffffff !important;
+    border: none !important;
+    transition: transform 0.2s ease, background-color 0.2s ease;
   }
 
   .subscribe-btn:hover {
-    background-color: #FF0B55 !important;
-    color: #111 !important;
+    background-color: #d90948 !important; /* Un rosa un poco más oscuro al pasar el ratón */
+    transform: scale(1.05);
+    color: #ffffff !important;
+  }
+
+  /* 4. Ajuste para que el contenedor de la web no se pegue a los bordes en móvil */
+  @media screen and (max-width: 600px) {
+    .wrapper {
+      padding-right: 15px !important;
+      padding-left: 15px !important;
+    }
   }
 </style>
