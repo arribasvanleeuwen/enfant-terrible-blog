@@ -48,10 +48,26 @@ jobs:
                   return max_res_url
               return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
 
+          # NUEVO: Recopilar los IDs de vídeos de YouTube que ya tienen un post
+          existing_video_ids = set()
+          for filename in os.listdir(POSTS_DIR):
+              if filename.endswith(".md"):
+                  with open(os.path.join(POSTS_DIR, filename), "r", encoding="utf-8") as f:
+                      content = f.read()
+                      match = re.search(r'youtube_id:\s*([a-zA-Z0-9_-]+)', content)
+                      if match:
+                          existing_video_ids.add(match.group(1))
+
           feed = feedparser.parse(FEED_URL)
 
           for entry in feed.entries:
               video_id = entry.yt_videoid
+              
+              # NUEVO: Si el vídeo ya existe en el blog, lo saltamos
+              if video_id in existing_video_ids:
+                  print(f"El vídeo {video_id} ya existe. Saltando...")
+                  continue
+
               title = entry.title.replace('"', '\\"')
               published = entry.published_parsed
               date_str = datetime(*published[:6]).strftime('%Y-%m-%d')
@@ -61,6 +77,7 @@ jobs:
               filename = f"{date_str}-{title_slug}.md"
               filepath = os.path.join(POSTS_DIR, filename)
 
+              # Mantenemos esta comprobación por seguridad adicional
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
                   description = entry.summary
@@ -69,11 +86,13 @@ jobs:
                   # Estilo de la etiqueta 4K (Dorado/Plateado)
                   badge_style = "font-size: 0.85em; font-weight: bold; opacity: 1; background: linear-gradient(135deg, #FFD700, #C0C0C0); color: #000; padding: 4px 12px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 3px rgba(0,0,0,0.2);"
 
+                  # NUEVO: Se añade 'youtube_id' al front matter
                   content = f"""---
           layout: post
           title: "{title}"
           date: {date_full}
           thumbnail: "{thumb_url}"
+          youtube_id: {video_id}
           ---
 
           <div class="video-link-container" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
@@ -105,5 +124,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Posts limpios: Etiqueta 4K y descripción sin cuadro blanco" || exit 0
+          git commit -m "Auto-post desde YouTube con control de duplicados por ID" || exit 0
           git push
