@@ -1,35 +1,27 @@
 <style>
-  /* 1. TÍTULOS Y ENLACES EN ROSA #FF0B55 */
-  .post-excerpt-container h3 a, h1, h2, .post-list-heading, .post-link, .post-content a {
+  /* 1. RESTAURAR TÍTULO PRINCIPAL (Blanco y tamaño original) */
+  .post-list-heading, h1.page-heading {
+    color: #ffffff !important;
+    font-size: 28px; /* Tamaño estándar de Jekyll Minima */
+    margin-bottom: 30px;
+  }
+
+  /* 2. TÍTULOS DE POSTS EN ROSA */
+  .post-excerpt-container h3 a {
     color: #FF0B55 !important;
     text-decoration: none !important;
+    font-size: 22px;
+    margin-top: 0;
   }
 
-  /* 2. BOTÓN SUBSCRIBE (Rosa Sólido) */
-  .subscribe-btn {
-    background-color: #FF0B55 !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 8px 16px !important;
-    border-radius: 6px !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    font-size: 11px !important;
-    letter-spacing: 0.5px !important;
-    text-decoration: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    line-height: 1 !important;
-  }
-
-  /* 3. TARJETAS DE LOS VÍDEOS */
+  /* 3. ALINEACIÓN CUADRADA (Escritorio) */
   .post-card {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     margin-bottom: 40px;
-    align-items: flex-start;
+    align-items: flex-start; /* Alinea la parte superior de la imagen con el título */
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 25px;
+    padding-bottom: 30px;
   }
 
   .post-thumb {
@@ -39,26 +31,24 @@
 
   .post-thumb img {
     width: 100%;
-    border-radius: 12px;
+    aspect-ratio: 16 / 9; /* Mantiene la forma de vídeo de YouTube */
+    object-fit: cover;
+    border-radius: 8px;
     display: block;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .post-excerpt-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .excerpt-text {
-    font-size: 0.95em;
+    font-size: 16px;
     color: #bbb;
     line-height: 1.5;
-    margin-bottom: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Corta a 3 líneas */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .post-date {
-    color: #666;
-    text-transform: uppercase;
-    font-size: 0.75em;
+    margin: 10px 0;
   }
 
   /* 4. RESPONSIVE MÓVIL */
@@ -69,12 +59,8 @@
     .post-thumb {
       width: 100%;
     }
-    .excerpt-text {
-      -webkit-line-clamp: 2; /* Solo 2 líneas en móvil */
-    }
-    .site-header .wrapper {
-      padding-right: 15px !important;
-      padding-left: 15px !important;
+    .post-list-heading {
+      font-size: 22px;
     }
   }
 </style>
