@@ -3,6 +3,10 @@ description: "The definitive source for ultra-realistic next-gen graphics. Exper
 url: "https://www.enfant-terrible.media"
 baseurl: ""
 
+# Dejamos el email vacío aquí para engañar a los scrappers
+email: 
+twitter_username: EnfantTerribleM
+
 # --- TEMA ---
 remote_theme: jekyll/minima
 minima:
