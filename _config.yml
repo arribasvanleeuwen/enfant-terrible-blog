@@ -8,14 +8,13 @@ baseurl: ""
 remote_theme: jekyll/minima
 minima:
   skin: dark
+  social_links:
+    twitter: EnfantTerribleM
+    rss: rss
 
-# --- REDES SOCIALES (Sintaxis compatible) ---
-twitter_username: EnfantTerribleM
-# El feed se genera automáticamente por el plugin
+# Esto hará que el email no aparezca de forma automática y fea
+email: 
+
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
-
-# --- CONFIGURACIÓN DEL FEED ---
-feed:
-  path: /feed.xml
