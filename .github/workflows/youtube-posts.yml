@@ -80,13 +80,11 @@ jobs:
                   thumb_url = get_best_thumbnail(video_id)
                   
                   # ---------------------------------------------------------
-                  # PROCESAMIENTO DE LA DESCRIPCIÓN (Lógica de recorte)
+                  # PROCESAMIENTO MEJORADO DE LA DESCRIPCIÓN
                   # ---------------------------------------------------------
                   raw_description = entry.summary.strip()
-                  # Separamos por párrafos reales (doble salto de línea)
                   paragraphs = re.split(r'\n\s*\n', raw_description)
                   
-                  # REGLA: Eliminar 2 primeros y EL ÚLTIMO (1)
                   if len(paragraphs) > 3:
                       content_paragraphs = paragraphs[2:-1]
                   else:
@@ -99,18 +97,20 @@ jobs:
                       p = p.strip()
                       if not p: continue
 
-                      # Títulos destacados (Emoji + Mayúsculas) -> h2
-                      if re.search(r'^[\U00010000-\U0010ffff].*[A-ZÁÉÍÓÚÑ]{2,}', p):
-                          p = f'<h2 style="color: #222; margin-top: 40px; border-bottom: 3px solid {rosa_web}; padding-bottom: 10px; font-weight: 800;">{p}</h2>'
+                      # MEJORA EN DETECCIÓN DE H2: 
+                      # Ahora acepta cualquier símbolo/emoji inicial seguido de texto que contenga mayúsculas
+                      if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
+                          p = f'<h2 style="color: #111; margin-top: 45px; border-bottom: 3px solid {rosa_web}; padding-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">{p}</h2>'
                       
-                      # Caja de resumen después de SUMMARY
+                      # MEJORA EN CAJA DE RESUMEN:
+                      # Fondo mucho más claro (blanco-rosado) y texto oscuro para máxima legibilidad
                       elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
-                          p = f'''<div style="background: rgba(255, 11, 85, 0.05); border-left: 6px solid {rosa_web}; padding: 20px; font-family: inherit; margin: 25px 0; border-radius: 4px; color: #333; font-style: italic; font-size: 1.1em;">
+                          p = f'''<div style="background: #FFFafa; border-left: 6px solid {rosa_web}; padding: 25px; font-family: inherit; margin: 30px 0; border-radius: 8px; color: #222; font-style: italic; font-size: 1.15em; line-height: 1.6; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                             {p}
                           </div>'''
                       
                       else:
-                          # Enlaces rosas y saltos de línea internos
+                          # Enlaces y formato de texto normal
                           p = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" rel="noopener" style="color: {rosa_web}; font-weight: bold; text-decoration: underline;">\\1</a>', p)
                           p = p.replace('\n', '<br>')
 
