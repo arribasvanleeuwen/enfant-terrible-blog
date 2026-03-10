@@ -1,33 +1,111 @@
 <style>
-  /* 1. Títulos en blanco para que resalten sobre el fondo oscuro del tema */
+  /* 1. TEXTO Y TÍTULOS */
   h1, h2, .post-list-heading, .site-title {
     color: #ffffff !important;
   }
 
-  /* 2. Color rosa corporativo para enlaces de texto (evitando el botón y el logo) */
+  /* 2. ENLACES GENERALES (Rosa corporativo) */
   .post-link, .post-content a {
     color: #FF0B55 !important;
   }
 
-  /* 3. Estilo del botón (limpio y sin interferir en la alineación) */
+  /* 3. BOTÓN SUBSCRIBE (Tu estilo favorito) */
   .subscribe-btn {
     background-color: #FF0B55 !important;
     color: #ffffff !important;
     border: none !important;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    transition: transform 0.2s ease;
   }
 
   .subscribe-btn:hover {
-    background-color: #d90948 !important; /* Un rosa un poco más oscuro al pasar el ratón */
     transform: scale(1.05);
-    color: #ffffff !important;
+    opacity: 0.9;
   }
 
-  /* 4. Ajuste para que el contenedor de la web no se pegue a los bordes en móvil */
+  /* 4. TARJETAS DE POSTS EN LA HOME */
+  .post-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 25px;
+  }
+
+  .post-thumb {
+    flex-shrink: 0;
+    width: 220px;
+  }
+
+  .post-thumb img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .post-excerpt-container h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    line-height: 1.2;
+  }
+
+  .post-excerpt-container h3 a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+  }
+
+  .excerpt-text {
+    font-size: 0.95em;
+    color: #bbb;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    /* Esto corta el texto a 3 líneas máximo */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-date {
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75em;
+  }
+
+  /* 5. RESPONSIVE (Móvil) */
   @media screen and (max-width: 600px) {
-    .wrapper {
+    /* Ajuste Header */
+    .site-header .wrapper {
       padding-right: 15px !important;
       padding-left: 15px !important;
+    }
+
+    /* Ajuste Tarjetas: Imagen arriba, texto abajo */
+    .post-card {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .post-thumb {
+      width: 100%;
+    }
+
+    .excerpt-text {
+      -webkit-line-clamp: 2; /* Solo 2 líneas en móvil */
     }
   }
 </style>
