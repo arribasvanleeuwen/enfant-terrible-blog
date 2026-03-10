@@ -7,11 +7,13 @@ title: "Daily videos about upcoming videogames"
   {% for post in site.posts %}
     <div class="post-card">
       
+      {% if post.thumbnail and post.thumbnail != "" %}
       <div class="post-thumb">
         <a href="{{ post.url }}">
           <img src="{{ post.thumbnail }}" alt="{{ post.title }}">
         </a>
       </div>
+      {% endif %}
 
       <div class="post-excerpt-container">
         <h3>
