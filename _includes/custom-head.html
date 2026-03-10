@@ -1,76 +1,79 @@
 <style>
-/* 1. TÍTULOS Y COLORES PRINCIPALES */
-.post-list-heading, .page-heading, .post-title {
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  border: none !important;
-  margin-bottom: 30px !important;
-}
-.post-card h3 a {
-  color: #FF0B55 !important;
-  text-decoration: none !important;
-  font-size: 22px !important;
-  transition: 0.2s;
-}
-.post-card h3 a:hover {
-  color: #ffffff !important;
-}
+  /* 1. TÍTULOS Y COLORES PRINCIPALES */
+  .post-list-heading, .page-heading, .post-title {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border: none !important;
+    margin-bottom: 30px !important;
+  }
+  .post-card h3 a {
+    color: #FF0B55 !important;
+    text-decoration: none !important;
+    font-size: 22px !important;
+  }
+  .post-card h3 a:hover { color: #ffffff !important; }
 
-/* 2. SUBTÍTULOS */
-.post-content h2, .description-container h2 {
-  color: #ffffff !important;
-  border-bottom: 2px solid #FF0B55 !important;
-  padding-bottom: 8px !important;
-  margin-top: 40px !important;
-  display: block !important;
-}
-.description-container h3 {
-  color: #ffffff !important;
-  font-size: 1.3em !important;
-  margin-top: 35px !important;
-  font-weight: 700 !important;
-}
+  /* 2. SUBTÍTULOS */
+  .post-content h2, .description-container h2 {
+    color: #ffffff !important;
+    border-bottom: 2px solid #FF0B55 !important;
+    padding-bottom: 8px !important;
+    margin-top: 40px !important;
+    display: block !important;
+  }
 
-/* 3. ESTRUCTURA DE LA HOME (LIMPIA) */
-.post-card {
-  display: flex !important;
-  gap: 25px !important;
-  margin-bottom: 40px !important;
-  padding-bottom: 30px !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-  align-items: flex-start !important;
-  width: 100% !important; /* Fuerza el estiramiento */
-}
-.post-excerpt-container {
-  flex: 1 !important; /* Obliga al texto a ocupar el resto */
-  min-width: 0 !important;
-}
-.post-thumb {
-  flex: 0 0 220px !important; /* Bloquea el tamaño de la miniatura */
-  margin-top: 8px !important; /* Baja la miniatura para alinearla con el texto */
-  line-height: 0 !important;
-}
-.post-thumb img {
-  width: 100% !important;
-  border-radius: 8px !important;
-  display: block !important;
-}
-.excerpt-text {
-  color: #bbbbbb !important;
-  font-size: 15px !important;
-  line-height: 1.5 !important;
-}
+  /* 3. ESTRUCTURA DE LA HOME (EL ARREGLO) */
+  .post-card {
+    display: flex !important;
+    gap: 25px !important;
+    margin-bottom: 40px !important;
+    padding-bottom: 30px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    align-items: flex-start !important;
+    width: 100% !important; /* Esto obliga a que el post ocupe todo el ancho */
+  }
 
-/* 4. STEAM Y MÓVIL */
-iframe[src*="steampowered.com/widget"] {
-  margin: 30px 0 !important;
-  display: block !important;
-  max-width: 646px !important;
-  border-radius: 8px !important;
-  background: #1b2838 !important;
-}
-@media screen and (max-width: 600px) {
-  .post-card { flex-direction: column !important; align-items: center !important; text-align: center !important; }
-  .post-thumb { width: 100% !important; max-width: 350px !important; }
-}
+  .post-excerpt-container {
+    flex: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* ELIMINAR EL MARGEN DEL <P> QUE ROMPE EL DISEÑO */
+  .excerpt-text p {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline !important; /* Para que no se comporte como bloque rígido */
+  }
+
+  .post-thumb {
+    flex: 0 0 220px !important;
+    margin-top: 5px !important;
+    line-height: 0 !important;
+  }
+
+  .post-thumb img {
+    width: 100% !important;
+    border-radius: 8px !important;
+    display: block !important;
+  }
+
+  .excerpt-text {
+    color: #bbbbbb !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 4. STEAM Y MÓVIL */
+  iframe[src*="steampowered.com/widget"] {
+    margin: 30px 0 !important;
+    display: block !important;
+    max-width: 646px !important;
+    border-radius: 8px !important;
+    background: #1b2838 !important;
+  }
+  @media screen and (max-width: 600px) {
+    .post-card { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+    .post-thumb { width: 100% !important; max-width: 350px !important; }
+  }
 </style>
