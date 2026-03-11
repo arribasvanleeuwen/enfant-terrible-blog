@@ -4,11 +4,14 @@ title: "Daily videos about upcoming videogames"
 ---
 
 <style>
+  /* 1. Quitamos cualquier línea que Jekyll Minima ponga automáticamente bajo el título de la página */
+  .page-header { border-bottom: none !important; margin-bottom: 0 !important; }
+  
   .search-wrapper {
-    margin: 20px auto 40px auto;
+    margin: 15px auto 45px auto; /* Espacio generoso abajo para alejarlo de la línea del primer post */
     position: relative;
     width: 100%;
-    max-width: 800px; /* Maintains a clean look on desktop */
+    max-width: 800px;
   }
 
   #search-input {
@@ -20,8 +23,8 @@ title: "Daily videos about upcoming videogames"
     border-radius: 8px;
     outline: none;
     transition: all 0.3s ease;
-    box-sizing: border-box; /* Fixes centering and width issues */
-    font-size: 16px; /* Prevents mobile browser auto-zoom */
+    box-sizing: border-box;
+    font-size: 16px;
   }
 
   #search-input:focus {
@@ -30,7 +33,7 @@ title: "Daily videos about upcoming videogames"
     box-shadow: 0 0 12px rgba(255, 11, 85, 0.2);
   }
 
-  /* Results dropdown menu */
+  /* El desplegable flota sobre las líneas de los posts sin cortarlas */
   #results-container {
     list-style: none;
     margin: 5px 0 0 0;
@@ -38,10 +41,10 @@ title: "Daily videos about upcoming videogames"
     position: absolute;
     width: 100%;
     background: #1d1d1d;
-    z-index: 1000; /* Ensures it stays above HR and content */
+    z-index: 1000;
     border: 1px solid #444;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     overflow: hidden;
   }
 
@@ -58,17 +61,20 @@ title: "Daily videos about upcoming videogames"
     color: #fff;
   }
 
-  /* Clean separation */
-  hr {
-    border: 0;
-    border-top: 1px solid #333;
-    margin: 40px 0;
+  /* 2. Aseguramos que los posts mantengan sus líneas de separación originales */
+  .post-card {
+    border-top: 1px solid #333; /* Línea de separación superior para cada post */
+    padding-top: 30px;
+    margin-bottom: 40px;
   }
 
-  /* Mobile specific adjustments */
+  /* Si quieres que el primer post no tenga línea superior para que no choque con el buscador, usa esto: */
+  /* .post-card:first-of-type { border-top: none; } */
+
   @media (max-width: 600px) {
     .search-wrapper {
       padding: 0 10px;
+      margin-bottom: 30px;
     }
   }
 </style>
@@ -77,8 +83,6 @@ title: "Daily videos about upcoming videogames"
   <input type="text" id="search-input" placeholder="Search videos...">
   <ul id="results-container"></ul>
 </div>
-
-<hr>
 
 <div class="posts-list">
   {% for post in site.posts %}
@@ -93,15 +97,15 @@ title: "Daily videos about upcoming videogames"
       {% endif %}
 
       <div class="post-excerpt-container">
-        <h3>
-          <a href="{{ post.url }}">{{ post.title }}</a>
+        <h3 style="margin-top: 0;">
+          <a href="{{ post.url }}" style="color: #fff; text-decoration: none;">{{ post.title }}</a>
         </h3>
         
-        <div class="excerpt-text">
+        <div class="excerpt-text" style="color: #ccc;">
           {{ post.excerpt }}
         </div>
 
-        <small class="post-date">{{ post.date | date: "%d/%m/%Y" }}</small>
+        <small class="post-date" style="color: #FF0B55;">{{ post.date | date: "%d/%m/%Y" }}</small>
       </div>
 
     </div>
