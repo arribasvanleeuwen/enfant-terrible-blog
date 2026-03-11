@@ -4,17 +4,16 @@ title: "Daily videos about upcoming videogames"
 ---
 
 <style>
-  /* 1. AISLAMIENTO TOTAL: Solo afecta al buscador */
+  /* CONTROL DE PRECISIÓN: Solo afecta a la posición del buscador */
   .search-block {
-    /* Centrado vertical simétrico exclusivo para este div */
-    margin: 25px 0 !important; 
+    margin: 30px 0 !important; /* Espacio base */
     padding: 0 !important;
     position: relative;
+    /* Movemos la caja 8px hacia arriba para centrarla visualmente entre las líneas */
+    top: -8px; 
     display: block;
-    clear: both;
   }
 
-  /* Estilos internos del buscador (no afectan al resto de la web) */
   #search-input {
     width: 100%;
     padding: 12px;
@@ -28,9 +27,7 @@ title: "Daily videos about upcoming videogames"
     margin: 0 !important;
   }
 
-  #search-input:focus { 
-    border-color: #FF0B55; 
-  }
+  #search-input:focus { border-color: #FF0B55; }
 
   #results-container {
     list-style: none;
@@ -44,17 +41,8 @@ title: "Daily videos about upcoming videogames"
     border-radius: 8px;
   }
 
-  #results-container li a { 
-    display: block; 
-    padding: 10px; 
-    color: #eee; 
-    text-decoration: none; 
-  }
-  
-  #results-container li a:hover { 
-    background: #FF0B55; 
-    color: #fff; 
-  }
+  #results-container li a { display: block; padding: 10px; color: #eee; text-decoration: none; }
+  #results-container li a:hover { background: #FF0B55; color: #fff; }
 </style>
 
 <div class="search-block">
