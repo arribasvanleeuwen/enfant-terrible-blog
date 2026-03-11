@@ -4,19 +4,21 @@ title: "Daily videos about upcoming videogames"
 ---
 
 <style>
-  /* CONTROL DE PRECISIÓN: Solo afecta a la posición del buscador */
-  .search-block {
-    margin: 30px 0 !important; /* Espacio base */
-    padding: 0 !important;
+  /* 1. ESPACIO EXCLUSIVO DEL BUSCADOR */
+  .search-wrapper-container {
+    /* Padding igual arriba y abajo crea la simetría visual */
+    padding: 30px 0 !important; 
+    /* Eliminamos márgenes externos para no empujar el título ni los posts */
+    margin: 0 !important;
     position: relative;
-    /* Movemos la caja 8px hacia arriba para centrarla visualmente entre las líneas */
-    top: -8px; 
+    width: 100%;
     display: block;
   }
 
+  /* 2. EL INPUT (Sin márgenes que lo desvíen) */
   #search-input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     background: #2b2b2b;
     color: #fff;
     border: 2px solid #444;
@@ -24,11 +26,13 @@ title: "Daily videos about upcoming videogames"
     font-size: 16px; 
     box-sizing: border-box;
     outline: none;
-    margin: 0 !important;
+    margin: 0 !important; /* Evita que el navegador le añada espacio extra */
+    display: block;
   }
 
   #search-input:focus { border-color: #FF0B55; }
 
+  /* 3. RESULTADOS (Capa superior) */
   #results-container {
     list-style: none;
     margin: 5px 0 0 0;
@@ -39,13 +43,14 @@ title: "Daily videos about upcoming videogames"
     z-index: 100;
     border: 1px solid #444;
     border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   }
 
   #results-container li a { display: block; padding: 10px; color: #eee; text-decoration: none; }
   #results-container li a:hover { background: #FF0B55; color: #fff; }
 </style>
 
-<div class="search-block">
+<div class="search-wrapper-container">
   <input type="text" id="search-input" placeholder="Search videos...">
   <ul id="results-container"></ul>
 </div>
