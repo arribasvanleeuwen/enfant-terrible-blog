@@ -4,9 +4,13 @@ title: "Daily videos about upcoming videogames"
 ---
 
 <style>
-  .search-container-box {
-    margin: 30px 0 50px 0; /* Gives 'air' inside the content box */
+  .search-wrapper {
+    /* Ajustamos el aire arriba y abajo para que quede visualmente centrado entre las líneas */
+    margin: 40px auto 40px auto; 
     position: relative;
+    width: 100%;
+    max-width: 800px;
+    display: block;
   }
 
   #search-input {
@@ -15,10 +19,12 @@ title: "Daily videos about upcoming videogames"
     background: #2b2b2b;
     color: #fff;
     border: 2px solid #444;
-    border-radius: 6px;
+    border-radius: 8px;
     outline: none;
-    box-sizing: border-box;
-    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box; /* Mantiene el buscador centrado en móvil */
+    font-size: 16px; /* Evita el zoom en móviles */
+    display: block;
   }
 
   #search-input:focus {
@@ -32,15 +38,16 @@ title: "Daily videos about upcoming videogames"
     position: absolute;
     width: 100%;
     background: #1d1d1d;
-    z-index: 100;
+    z-index: 1000;
     border: 1px solid #444;
-    border-radius: 6px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    overflow: hidden;
   }
 
   #results-container li a {
     display: block;
-    padding: 10px 15px;
+    padding: 12px 15px;
     color: #eee;
     text-decoration: none;
   }
@@ -49,9 +56,15 @@ title: "Daily videos about upcoming videogames"
     background-color: #FF0B55;
     color: #fff;
   }
+
+  /* Aseguramos que el contenido de los posts no empuje el buscador hacia arriba */
+  .posts-list {
+    margin-top: 0;
+    padding-top: 0;
+  }
 </style>
 
-<div class="search-container-box">
+<div class="search-wrapper">
   <input type="text" id="search-input" placeholder="Search videos...">
   <ul id="results-container"></ul>
 </div>
