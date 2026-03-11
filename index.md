@@ -4,15 +4,16 @@ title: "Daily videos about upcoming videogames"
 ---
 
 <style>
-  /* AJUSTE MILIMÉTRICO: Eliminamos el aire superior para compensar el título */
+  /* AJUSTE DE COMPENSACIÓN NEGATIVA */
   .search-wrapper-box {
-    padding-top: 0 !important; /* Cero absoluto arriba */
-    padding-bottom: 35px !important; /* Aire generoso abajo para los posts */
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    /* El margen negativo sube la caja para anular el espacio muerto del título */
+    margin-top: -25px !important; 
+    /* El padding inferior separa la caja del primer post */
+    padding-bottom: 30px !important;
     position: relative;
     width: 100%;
     display: block;
+    z-index: 10;
   }
 
   #search-input {
