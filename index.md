@@ -4,31 +4,32 @@ title: "Daily videos about upcoming videogames"
 ---
 
 <style>
-  .search-wrapper {
-    /* Ajustamos el aire arriba y abajo para que quede visualmente centrado entre las líneas */
-    margin: 40px auto 40px auto; 
+  /* 1. AISLAMIENTO TOTAL: Solo afecta al buscador */
+  .search-block {
+    /* Centrado vertical simétrico exclusivo para este div */
+    margin: 25px 0 !important; 
+    padding: 0 !important;
     position: relative;
-    width: 100%;
-    max-width: 800px;
     display: block;
+    clear: both;
   }
 
+  /* Estilos internos del buscador (no afectan al resto de la web) */
   #search-input {
     width: 100%;
-    padding: 12px 15px;
+    padding: 12px;
     background: #2b2b2b;
     color: #fff;
     border: 2px solid #444;
     border-radius: 8px;
+    font-size: 16px; 
+    box-sizing: border-box;
     outline: none;
-    transition: border-color 0.3s;
-    box-sizing: border-box; /* Mantiene el buscador centrado en móvil */
-    font-size: 16px; /* Evita el zoom en móviles */
-    display: block;
+    margin: 0 !important;
   }
 
-  #search-input:focus {
-    border-color: #FF0B55;
+  #search-input:focus { 
+    border-color: #FF0B55; 
   }
 
   #results-container {
@@ -38,33 +39,25 @@ title: "Daily videos about upcoming videogames"
     position: absolute;
     width: 100%;
     background: #1d1d1d;
-    z-index: 1000;
+    z-index: 100;
     border: 1px solid #444;
     border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    overflow: hidden;
   }
 
-  #results-container li a {
-    display: block;
-    padding: 12px 15px;
-    color: #eee;
-    text-decoration: none;
+  #results-container li a { 
+    display: block; 
+    padding: 10px; 
+    color: #eee; 
+    text-decoration: none; 
   }
-
-  #results-container li a:hover {
-    background-color: #FF0B55;
-    color: #fff;
-  }
-
-  /* Aseguramos que el contenido de los posts no empuje el buscador hacia arriba */
-  .posts-list {
-    margin-top: 0;
-    padding-top: 0;
+  
+  #results-container li a:hover { 
+    background: #FF0B55; 
+    color: #fff; 
   }
 </style>
 
-<div class="search-wrapper">
+<div class="search-block">
   <input type="text" id="search-input" placeholder="Search videos...">
   <ul id="results-container"></ul>
 </div>
@@ -100,7 +93,6 @@ title: "Daily videos about upcoming videogames"
     resultsContainer: document.getElementById('results-container'),
     json: '{{ "/search.json" | relative_url }}',
     searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
-    noResultsText: '<li style="padding:10px; color:#888;">No results found</li>',
-    limit: 10
+    noResultsText: '<li style="padding:10px; color:#888;">No results found</li>'
   })
 </script>
