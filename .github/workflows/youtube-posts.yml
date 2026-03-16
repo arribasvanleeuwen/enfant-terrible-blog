@@ -74,9 +74,7 @@ jobs:
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
                   
-                  # Volvemos a la separación por párrafos original
                   paragraphs = re.split(r'\n\s*\n', entry.summary.strip())
-                  # Mantenemos el salto de las primeras líneas de instrucciones
                   content_paragraphs = paragraphs[2:-1] if len(paragraphs) > 3 else paragraphs
 
                   formatted_paragraphs = []
@@ -87,16 +85,13 @@ jobs:
                       p = p.strip()
                       if not p: continue
                       
-                      # 1. ELIMINAR LÍNEAS DE TIEMPO (Solo esto)
                       p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
                       
-                      # 2. LIMPIAR GUIONES (Dejar texto normal)
                       if p.startswith(('-', '•', '*', '/')):
                           p = re.sub(r'^[-•*/]+\s*', '', p).strip()
 
                       if not p: continue
                       
-                      # 3. RESTO DE LÓGICA ORIGINAL (H3, Summary, Steam)
                       if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
                           p_html = f'<h3 style="color: #ffffff; margin-top: 35px; border-bottom: 2px solid {rosa_web}; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; font-size: 1.3em;">{p}</h3>'
                       elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
@@ -106,7 +101,8 @@ jobs:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
                               game_id = steam_match.group(1)
-                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 25px 0; border-radius: 8px;"></iframe>'
+                              # ÚNICO CAMBIO: Añadido max-width: 100% para evitar flechas en móvil
+                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 25px 0; border-radius: 8px; max-width: 100%;"></iframe>'
                           else:
                               p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                       else:
@@ -130,7 +126,7 @@ jobs:
           <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: sans-serif;">
             <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 18px; overflow: hidden; margin-bottom: 35px;">
               <img src="{thumb_url}" style="width: 100%; display: block;">
-              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                 <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>
               </div>
             </a>
@@ -145,5 +141,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post: Back to original paragraph logic with clean hyphens" || exit 0
+          git commit -m "Auto-post: Fix steam embed width for mobile" || exit 0
           git push
