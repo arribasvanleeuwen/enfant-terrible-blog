@@ -73,79 +73,80 @@ jobs:
 
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
-                  paragraphs = re.split(r'\n\s*\n', entry.summary.strip())
-                  content_paragraphs = paragraphs[2:-1] if len(paragraphs) > 3 else paragraphs
-
+                  # Dividimos por saltos de línea para detectar los guiones como párrafos nuevos
+                  raw_lines = entry.summary.strip().split('\n')
+                  
                   formatted_paragraphs = []
                   rosa_web = "#FF0B55"
                   summary_text = ""
 
-                  for p in content_paragraphs:
-                      p = p.strip()
+                  for line in raw_lines:
+                      p = line.strip()
                       if not p: continue
                       
-                      # 1. ELIMINAR LÍNEAS DE TIEMPO
-                      p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
+                      # 1. ELIMINAR LÍNEAS DE TIEMPO (Timestamp)
+                      p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p).strip()
                       if not p: continue
 
-                      # 2. CONVERTIR GUIONES EN PUNTOS (Formato limpio)
+                      # 2. DETECTAR GUIONES Y LIMPIARLOS (Tratar como texto normal)
                       if p.startswith(('-', '•', '*', '/')):
-                          p_clean = re.sub(r'^[-•*/]+\s*', '', p).strip()
-                          p_html = f'<p style="margin-bottom: 10px; line-height: 1.6; color: #e0e0e0;"><span style="color: {rosa_web}; font-weight: bold; margin-right: 8px;">•</span>{p_clean}</p>'
+                          p = re.sub(r'^[-•*/]+\s*', '', p).strip()
+
+                      # 3. LÓGICA DE FORMATO BÁSICO
+                      # Títulos destacados
+                      if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
+                          p_html = f'<h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid {rosa_web}; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">{p}</h3>'
                       
-                      # 3. TÍTULOS DESTACADOS
-                      elif re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
-                          p_html = f'<h3 style="color: #ffffff; margin-top: 35px; border-bottom: 2px solid {rosa_web}; padding-bottom: 8px; font-weight: 700; text-transform: uppercase;">{p}</h3>'
+                      # Caja de sumario
+                      elif "SUMMARY" in p.upper():
+                          summary_text = p.replace('"', "'")
+                          p_html = f'<div style="background: #1a1a1a; border-left: 5px solid {rosa_web}; padding: 15px; margin: 20px 0; color: #ffffff; font-style: italic;">{p}</div>'
                       
-                      # 4. CAJA DE SUMARIO
-                      elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
-                          summary_text = p.replace('"', "'").replace('\n', ' ')
-                          p_html = f'<div style="background: #1a1a1a; border-left: 5px solid {rosa_web}; padding: 20px; margin: 25px 0; border-radius: 6px; color: #ffffff; font-style: italic;">{p}</div>'
-                      
-                      # 5. WIDGET DE STEAM (Sin márgenes que rompan el móvil)
+                      # Widget de Steam
                       elif "store.steampowered.com/app/" in p:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
                               game_id = steam_match.group(1)
-                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 20px 0; border-radius: 8px; display: block;"></iframe>'
+                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 20px 0; border-radius: 8px;"></iframe>'
                           else:
                               p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                       
-                      # 6. TEXTO NORMAL
+                      # Texto normal (cada línea es un párrafo con su margen)
                       else:
                           p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
-                          p_html = f'<p style="margin-bottom: 20px; line-height: 1.7;">{p_clean.replace("\n", "<br>")}</p>'
+                          p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean}</p>'
                       
                       formatted_paragraphs.append(p_html)
 
-                  description = "\n\n".join(formatted_paragraphs)
+                  description = "\n".join(formatted_paragraphs)
                   if len(summary_text) > 160: summary_text = summary_text[:157] + "..."
                   
-                  post_content = "---\n"
-                  post_content += "layout: post\n"
-                  post_content += f'title: "{title}"\n'
-                  post_content += f"date: {date_full}\n"
-                  post_content += f'thumbnail: "{thumb_url}"\n'
-                  post_content += f"youtube_id: {video_id}\n"
-                  post_content += f'excerpt: "{summary_text}"\n'
-                  post_content += "---\n\n"
-                  post_content += '<div class="video-post-wrapper" style="width: 100%; max-width: 800px; margin: 0 auto;">\n'
-                  post_content += f'  <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">\n'
-                  post_content += f'    <img src="{thumb_url}" style="width: 100%; display: block;">\n'
-                  post_content += '    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">\n'
-                  post_content += '      <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>\n'
-                  post_content += '    </div>\n'
-                  post_content += '  </a>\n'
-                  post_content += f'  <div class="description-container">{description}</div>\n'
-                  post_content += '</div>'
+                  post_content = f"""---
+          layout: post
+          title: "{title}"
+          date: {date_full}
+          thumbnail: "{thumb_url}"
+          youtube_id: {video_id}
+          excerpt: "{summary_text}"
+          ---
 
+          <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">
+            <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 25px;">
+              <img src="{thumb_url}" style="width: 100%; display: block;">
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; border-left: 20px solid white; margin-left: 5px;"></div>
+              </div>
+            </a>
+            <div class="description-container">{description}</div>
+          </div>
+          """
                   with open(filepath, "w", encoding="utf-8") as f:
-                      f.write(post_content)
+                      f.write(post_content.strip())
 
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post: Simplified layout for mobile fix" || exit 0
+          git commit -m "Auto-post: Cleaned timestamps and hyphens as normal paragraphs" || exit 0
           git push
