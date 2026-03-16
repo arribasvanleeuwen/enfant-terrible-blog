@@ -73,6 +73,8 @@ jobs:
 
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
+                  
+                  # 1. Recuperar párrafos originales (bloques separados por doble línea)
                   paragraphs = re.split(r'\n\s*\n', entry.summary.strip())
                   content_paragraphs = paragraphs[2:-1] if len(paragraphs) > 3 else paragraphs
 
@@ -83,9 +85,14 @@ jobs:
                   for p in content_paragraphs:
                       p = p.strip()
                       if not p: continue
+                      
+                      # Limpiar líneas de tiempo
                       p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
+                      
+                      # Limpiar guiones y prepararlos como párrafo nuevo
                       if p.startswith(('-', '•', '*', '/')):
                           p = re.sub(r'^[-•*/]+\s*', '', p).strip()
+
                       if not p: continue
                       
                       if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
@@ -97,10 +104,12 @@ jobs:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
                               game_id = steam_match.group(1)
-                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 20px 0; display: block; max-width: 100%;"></iframe>'
+                              # SOLUCIÓN: Caja que corta lo que sobre por la derecha
+                              p_html = f'<div style="max-width: 100%; overflow: hidden; border-radius: 8px; margin: 20px 0;"><iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="display: block; border: none;"></iframe></div>'
                           else:
                               p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                       else:
+                          # Enlaces y texto normal envueltos en <p> para espacio entre párrafos
                           p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                           p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace("\n", "<br>")}</p>'
                       
@@ -121,7 +130,7 @@ jobs:
                   post_content += f'  <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">\n'
                   post_content += f'    <img src="{thumb_url}" style="width: 100%; display: block;">\n'
                   post_content += '    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">\n'
-                  post_content += '      <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>\n'
+                  post_content += '      <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>\n'
                   post_content += '    </div>\n'
                   post_content += '  </a>\n'
                   post_content += f'  <div class="description-container">{description}</div>\n'
@@ -135,5 +144,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post: Syntax fix and steam mobile width" || exit 0
+          git commit -m "Auto-post: Final responsive Steam widget and hyphen cleanup" || exit 0
           git push
