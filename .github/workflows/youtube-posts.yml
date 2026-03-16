@@ -86,36 +86,35 @@ jobs:
                       
                       # 1. ELIMINAR LÍNEAS DE TIEMPO
                       p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
-                      
                       if not p: continue
 
-                      # 2. CONVERTIR GUIONES EN PUNTOS CON ESTILO
+                      # 2. CONVERTIR GUIONES EN PUNTOS (Formato limpio)
                       if p.startswith(('-', '•', '*', '/')):
                           p_clean = re.sub(r'^[-•*/]+\s*', '', p).strip()
-                          p_html = f'<div style="margin-bottom: 12px; padding-left: 20px; position: relative; line-height: 1.6; color: #e0e0e0;"><span style="color: {rosa_web}; position: absolute; left: 0; font-weight: bold;">•</span>{p_clean}</div>'
+                          p_html = f'<p style="margin-bottom: 10px; line-height: 1.6; color: #e0e0e0;"><span style="color: {rosa_web}; font-weight: bold; margin-right: 8px;">•</span>{p_clean}</p>'
                       
                       # 3. TÍTULOS DESTACADOS
                       elif re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
-                          p_html = f'<h3 style="color: #ffffff; margin-top: 40px; border-bottom: 2px solid {rosa_web}; padding-bottom: 10px; font-weight: 700; text-transform: uppercase; font-size: 1.3em;">{p}</h3>'
+                          p_html = f'<h3 style="color: #ffffff; margin-top: 35px; border-bottom: 2px solid {rosa_web}; padding-bottom: 8px; font-weight: 700; text-transform: uppercase;">{p}</h3>'
                       
                       # 4. CAJA DE SUMARIO
                       elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
                           summary_text = p.replace('"', "'").replace('\n', ' ')
-                          p_html = f'<div style="background: #1a1a1a; border-left: 5px solid {rosa_web}; padding: 25px; margin: 30px 0; border-radius: 8px; color: #ffffff; font-style: italic; font-size: 1.05em; line-height: 1.7;">{p}</div>'
+                          p_html = f'<div style="background: #1a1a1a; border-left: 5px solid {rosa_web}; padding: 20px; margin: 25px 0; border-radius: 6px; color: #ffffff; font-style: italic;">{p}</div>'
                       
-                      # 5. WIDGET DE STEAM
+                      # 5. WIDGET DE STEAM (Sin márgenes que rompan el móvil)
                       elif "store.steampowered.com/app/" in p:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
                               game_id = steam_match.group(1)
-                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 30px 0; border-radius: 10px;"></iframe>'
+                              p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 20px 0; border-radius: 8px; display: block;"></iframe>'
                           else:
-                              p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold; text-decoration: none;">\\1</a>', p)
+                              p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                       
-                      # 6. TEXTO NORMAL (Con margen inferior para punto y aparte)
+                      # 6. TEXTO NORMAL
                       else:
-                          p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold; text-decoration: none;">\\1</a>', p)
-                          p_html = f'<p style="margin-bottom: 25px; line-height: 1.8; color: #f0f0f0;">{p_clean.replace("\n", "<br>")}</p>'
+                          p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
+                          p_html = f'<p style="margin-bottom: 20px; line-height: 1.7;">{p_clean.replace("\n", "<br>")}</p>'
                       
                       formatted_paragraphs.append(p_html)
 
@@ -130,14 +129,14 @@ jobs:
                   post_content += f"youtube_id: {video_id}\n"
                   post_content += f'excerpt: "{summary_text}"\n'
                   post_content += "---\n\n"
-                  post_content += '<div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif;">\n'
-                  post_content += f'  <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">\n'
+                  post_content += '<div class="video-post-wrapper" style="width: 100%; max-width: 800px; margin: 0 auto;">\n'
+                  post_content += f'  <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">\n'
                   post_content += f'    <img src="{thumb_url}" style="width: 100%; display: block;">\n'
-                  post_content += '    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85px; height: 85px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255, 11, 85, 0.4);">\n'
-                  post_content += '      <div style="width: 0; height: 0; border-top: 18px solid transparent; border-bottom: 18px solid transparent; border-left: 28px solid white; margin-left: 8px;"></div>\n'
+                  post_content += '    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">\n'
+                  post_content += '      <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>\n'
                   post_content += '    </div>\n'
                   post_content += '  </a>\n'
-                  post_content += f'  <div class="description-container" style="background: transparent;">{description}</div>\n'
+                  post_content += f'  <div class="description-container">{description}</div>\n'
                   post_content += '</div>'
 
                   with open(filepath, "w", encoding="utf-8") as f:
@@ -148,5 +147,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts/*.md
-          git commit -m "Auto-post: Enhanced typography and list styles" || exit 0
+          git commit -m "Auto-post: Simplified layout for mobile fix" || exit 0
           git push
