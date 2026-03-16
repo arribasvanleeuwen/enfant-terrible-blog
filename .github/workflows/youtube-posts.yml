@@ -73,10 +73,7 @@ jobs:
 
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
-                  
-                  # FILTRO ORIGINAL: Separación por bloques
                   paragraphs = re.split(r'\n\s*\n', entry.summary.strip())
-                  # FILTRO ORIGINAL: Se salta los dos primeros y el último
                   content_paragraphs = paragraphs[2:-1] if len(paragraphs) > 3 else paragraphs
 
                   formatted_paragraphs = []
@@ -86,14 +83,9 @@ jobs:
                   for p in content_paragraphs:
                       p = p.strip()
                       if not p: continue
-                      
-                      # Eliminar tiempos
                       p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
-                      
-                      # Detectar y limpiar guiones (para que sean párrafos normales)
                       if p.startswith(('-', '•', '*', '/')):
                           p = re.sub(r'^[-•*/]+\s*', '', p).strip()
-
                       if not p: continue
                       
                       if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
@@ -105,12 +97,10 @@ jobs:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
                               game_id = steam_match.group(1)
-                              # Ajuste quirúrgico para Steam en móvil
                               p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 20px 0; display: block; max-width: 100%;"></iframe>'
                           else:
                               p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                       else:
-                          # Enlaces y resto del texto en párrafos <p>
                           p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                           p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace("\n", "<br>")}</p>'
                       
@@ -119,24 +109,31 @@ jobs:
                   description = "\n\n".join(formatted_paragraphs)
                   if len(summary_text) > 160: summary_text = summary_text[:157] + "..."
                   
-                  post_content = f"""---
-          layout: post
-          title: "{title}"
-          date: {date_full}
-          thumbnail: "{thumb_url}"
-          youtube_id: {video_id}
-          excerpt: "{summary_text}"
-          ---
+                  post_content = "---\n"
+                  post_content += "layout: post\n"
+                  post_content += f'title: "{title}"\n'
+                  post_content += f"date: {date_full}\n"
+                  post_content += f'thumbnail: "{thumb_url}"\n'
+                  post_content += f"youtube_id: {video_id}\n"
+                  post_content += f'excerpt: "{summary_text}"\n'
+                  post_content += "---\n\n"
+                  post_content += '<div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">\n'
+                  post_content += f'  <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">\n'
+                  post_content += f'    <img src="{thumb_url}" style="width: 100%; display: block;">\n'
+                  post_content += '    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">\n'
+                  post_content += '      <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>\n'
+                  post_content += '    </div>\n'
+                  post_content += '  </a>\n'
+                  post_content += f'  <div class="description-container">{description}</div>\n'
+                  post_content += '</div>'
 
-          <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">
-            <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">
-              <img src="{thumb_url}" style="width: 100%; display: block;">
-              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>
-              </div>
-            </a>
-            <div class="description-container">{description}</div>
-          </div>
-          """
                   with open(filepath, "w", encoding="utf-8") as f:
-                      f.write(post_content
+                      f.write(post_content)
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts/*.md
+          git commit -m "Auto-post: Syntax fix and steam mobile width" || exit 0
+          git push
