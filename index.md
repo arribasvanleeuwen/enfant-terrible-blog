@@ -55,7 +55,7 @@ title: "Daily videos about upcoming videogames"
 </div>
 
 <div class="posts-list">
-  {% for post in site.posts %}
+  {% for post in paginator.posts %}
     <div class="post-card">
       {% if post.thumbnail and post.thumbnail != "" %}
       <div class="post-thumb">
@@ -77,6 +77,12 @@ title: "Daily videos about upcoming videogames"
     </div>
   {% endfor %}
 </div>
+
+{% if paginator.next_page %}
+  <div id="infinite-scroll-trigger" data-next-url="{{ paginator.next_page_path | relative_url }}" style="text-align: center; padding: 20px; color: #888;">
+    Loading more videos...
+  </div>
+{% endif %}
 
 <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
 <script>
