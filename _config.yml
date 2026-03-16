@@ -3,6 +3,9 @@ description: "The definitive source for ultra-realistic next-gen graphics. Exper
 url: "https://www.enfant-terrible.media"
 baseurl: ""
 
+paginate: 10 # Change this to the number of posts you want per load
+paginate_path: "/page:num/"
+
 twitter_username: EnfantTerribleM
 
 remote_theme: jekyll/minima
@@ -12,3 +15,4 @@ minima:
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
+  - jekyll-paginate
