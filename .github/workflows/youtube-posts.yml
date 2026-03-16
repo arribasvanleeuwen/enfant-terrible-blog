@@ -43,19 +43,20 @@ jobs:
 
           def get_best_thumbnail(v_id):
               max_res_url = f"https://img.youtube.com/vi/{v_id}/maxresdefault.jpg"
-              response = requests.head(max_res_url)
+              response = requests.head(max_res_url, allow_redirects=True)
               if response.status_code == 200:
                   return max_res_url
               return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
 
           existing_video_ids = set()
-          for filename in os.listdir(POSTS_DIR):
-              if filename.endswith(".md"):
-                  with open(os.path.join(POSTS_DIR, filename), "r", encoding="utf-8") as f:
-                      content = f.read()
-                      match = re.search(r'youtube_id:\s*([a-zA-Z0-9_-]+)', content)
-                      if match:
-                          existing_video_ids.add(match.group(1))
+          if os.path.exists(POSTS_DIR):
+              for filename in os.listdir(POSTS_DIR):
+                  if filename.endswith(".md"):
+                      with open(os.path.join(POSTS_DIR, filename), "r", encoding="utf-8") as f:
+                          content = f.read()
+                          match = re.search(r'youtube_id:\s*([a-zA-Z0-9_-]+)', content)
+                          if match:
+                              existing_video_ids.add(match.group(1).strip())
 
           feed = feedparser.parse(FEED_URL)
 
@@ -83,25 +84,20 @@ jobs:
                       p = p.strip()
                       if not p: continue
                       
-                      # LIMPIEZA PEDIDA: 1. Eliminar marcadores de tiempo
+                      # LIMPIEZA PEDIDA: Marcadores fuera
                       p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
                       
-                      # LIMPIEZA PEDIDA: 2. Guiones por puntos
+                      # LIMPIEZA PEDIDA: Guiones por puntos
                       if p.startswith(('-', '•', '*', '/')):
                           p = re.sub(r'^[-•*/]+\s*', '• ', p).strip()
 
                       if not p: continue
                       
-                      # 1. TÍTULOS DESTACADOS
                       if re.search(r'^[^\w\s].*[A-ZÁÉÍÓÚÑ]{2,}', p):
                           p_html = f'<h3 style="color: #ffffff; margin-top: 35px; border-bottom: 2px solid {rosa_web}; padding-bottom: 8px; font-weight: 700; text-transform: uppercase; font-size: 1.3em;">{p}</h3>'
-                      
-                      # 2. CAJA DE SUMARIO
                       elif len(formatted_paragraphs) > 0 and "SUMMARY" in formatted_paragraphs[-1]:
                           summary_text = p.replace('"', "'").replace('\n', ' ')
                           p_html = f'<div style="background: #1a1a1a; border-left: 5px solid {rosa_web}; padding: 20px; margin: 25px 0; border-radius: 6px; color: #ffffff; font-style: italic; font-size: 1em; line-height: 1.6;">{p}</div>'
-                      
-                      # 3. WIDGET DE STEAM
                       elif "store.steampowered.com/app/" in p:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
@@ -109,8 +105,6 @@ jobs:
                               p_html = f'<iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="margin: 25px 0; border-radius: 8px;"></iframe>'
                           else:
                               p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
-                      
-                      # 4. TEXTO NORMAL Y OTROS LINKS
                       else:
                           p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                           p_html = p_html.replace('\n', '<br>')
@@ -120,28 +114,31 @@ jobs:
                   description = "\n\n".join(formatted_paragraphs)
                   if len(summary_text) > 160: summary_text = summary_text[:157] + "..."
                   
-                  post_content = f"""---
-          layout: post
-          title: "{title}"
-          date: {date_full}
-          thumbnail: "{thumb_url}"
-          youtube_id: {video_id}
-          excerpt: "{summary_text}"
-          ---
+                  post_content = "---\n"
+                  post_content += "layout: post\n"
+                  post_content += f'title: "{title}"\n'
+                  post_content += f"date: {date_full}\n"
+                  post_content += f'thumbnail: "{thumb_url}"\n'
+                  post_content += f"youtube_id: {video_id}\n"
+                  post_content += f'excerpt: "{summary_text}"\n'
+                  post_content += "---\n\n"
+                  post_content += '<div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: sans-serif;">\n'
+                  post_content += f'  <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 18px; overflow: hidden; margin-bottom: 35px;">\n'
+                  post_content += f'    <img src="{thumb_url}" style="width: 100%; display: block;">\n'
+                  post_content += '    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">\n'
+                  post_content += '      <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>\n'
+                  post_content += '    </div>\n'
+                  post_content += '  </a>\n'
+                  post_content += f'  <div class="description-container">{description}</div>\n'
+                  post_content += '</div>'
 
-          <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto; font-family: sans-serif;">
-            <a href="{entry.link}" target="_blank" style="display: block; position: relative; border-radius: 18px; overflow: hidden; margin-bottom: 35px;">
-              <img src="{thumb_url}" style="width: 100%; display: block;">
-              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid white; margin-left: 5px;"></div>
-              </div>
-            </a>
-            <div class="description-container">{description}</div>
-          </div>
-          """
                   with open(filepath, "w", encoding="utf-8") as f:
-                      f.write(post_content.strip())
+                      f.write(post_content)
 
       - name: Commit and Push
         run: |
-          git config --global user
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts/*.md
+          git commit -m "Auto-post: Updated cleaning rules" || exit 0
+          git push
