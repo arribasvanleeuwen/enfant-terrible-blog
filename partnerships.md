@@ -1,19 +1,18 @@
 ---
 layout: page
-title: Partnerships
+title: Brand Partnerships and Sponsorships
 permalink: /partnerships/
 ---
 
 <div class="landing-custom">
   <header class="hero-section">
-    <h1>Brand Partnerships and Sponsorships</h1>
     <p class="subtitle">ENFANT TERRIBLE is a leading platform for early access coverage, high-end 4K production, and exclusive gaming premieres.</p>
   </header>
 
   <div class="stats-grid">
     <div class="stat-item">
-      <span class="number">+450K subscribers</span>
-      <span class="label">Monthly Views</span>
+      <span class="number">+450K</span>
+      <span class="label">Subscribers</span>
     </div>
     <div class="stat-item">
       <span class="number">+5M</span>
@@ -31,18 +30,18 @@ permalink: /partnerships/
 
   <section class="policy-section">
     <h2>Sponsorship Policy</h2>
-    <p>To maintain editorial integrity and production quality, we implement a strict vetting process for all commercial inquiries:</p>
+    <p>To maintain editorial integrity and production quality, we implement the following process for all commercial inquiries:</p>
     <ul class="filter-list">
-      <li><strong>Firm Offers Only:</strong> We do not review proposals that lack a defined budget (fee) or "pay-per-result" models.</li>
-      <li><strong>No Key Exchanges:</strong> Requests for video coverage in exchange for game keys/exposure will not be considered.</li>
-      <li><strong>Submission Protocol:</strong> Inquiries sent directly via email without completing this brief will be automatically archived.</li>
+      <li><strong>Firm Offers Only:</strong> We do not review sponsorship proposals that lack a defined budget or "pay-per-result" models.</li>
+      <li><strong>No Key Exchanges:</strong> Sponsorship requests for video coverage in exchange for game keys will not be considered.</li>
+      <li><strong>Submission Protocol:</strong> Sponsorship inquiries sent directly via email without completing this brief will not be considered.</li>
     </ul>
   </section>
 
   <div class="form-container">
     <h3 style="color: #fff; text-align: center; margin-bottom: 30px;">Campaign Briefing</h3>
-    <iframe data-tally-src="https://tally.so/embed/VL1qdE?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="100" frameborder="0" marginheight="0" marginwidth="0" title="SPONSORSHIPS' REQUESTS"></iframe>
-    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+    <iframe data-tally-src="https://tally.so/embed/VL1qdE?alignLeft=1&hideTitle=1&dynamicHeight=1" loading="lazy" width="100%" height="100" frameborder="0" marginheight="0" marginwidth="0" title="SPONSORSHIPS' REQUESTS"></iframe>
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>{var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
   </div>
 </div>
 
