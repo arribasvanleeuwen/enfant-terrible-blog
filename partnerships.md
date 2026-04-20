@@ -11,7 +11,7 @@ permalink: /partnerships/
 
   <div class="stats-grid">
     <div class="stat-item">
-      <span class="number">+450K</span>
+      <span class="number">500K</span>
       <span class="label">Subscribers</span>
     </div>
     <div class="stat-item">
@@ -20,27 +20,32 @@ permalink: /partnerships/
     </div>
     <div class="stat-item">
       <span class="number">Premium</span>
-      <span class="label">4K Production</span>
+      <span class="label">4K Production with RTX 5090</span>
     </div>
     <div class="stat-item">
       <span class="number">Core</span>
-      <span class="label">Gaming Audience</span>
+      <span class="label">Worlwide Gaming Audience</span>
     </div>
   </div>
 
   <section class="policy-section">
-    <h2>Sponsorship Policy</h2>
-    <p>To maintain editorial integrity and production quality, we implement the following process for all commercial inquiries:</p>
-    <ul class="filter-list">
-      <li><strong>Firm Offers Only:</strong> We do not review sponsorship proposals that lack a defined budget or "pay-per-result" models.</li>
-      <li><strong>No Key Exchanges:</strong> Sponsorship requests for video coverage in exchange for game keys will not be considered.</li>
-      <li><strong>Submission Protocol:</strong> Sponsorship inquiries sent directly via email without completing this brief will not be considered.</li>
-    </ul>
-  </section>
+    <h2>Partnerships</h2>
+    <p>We categorize inquiries into two distinct tracks to ensure the best fit for our audience and production standards:</p>
+    <div class="modality-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+      <div style="background: #111; padding: 20px; border: 1px solid #333;">
+        <h4 style="color: #ff3e3e;">1. Editorial and Early Access</h4>
+        <p style="font-size: 0.9rem;">Reserved for <strong>unreleased titles</strong> and <strong>exclusive previews</strong>. Projects featuring unique gameplay or world-first access will be evaluated for potential complimentary coverage based on editorial interest.</p>
+      </div>
+      <div style="background: #111; padding: 20px; border: 1px solid #333;">
+        <h4 style="color: #ff3e3e;">2. Commercial Sponsorships</h4>
+        <p style="font-size: 0.9rem;">For <strong>already released games</strong>, hardware, or promotional campaigns. These placements require a <strong>firm financial offer</strong> to be considered for our production schedule.</p>
+      </div>
+    </div>
+</section>
 
   <div class="form-container">
     <h3 style="color: #fff; text-align: center; margin-bottom: 30px;">Campaign Briefing</h3>
-    <iframe data-tally-src="https://tally.so/embed/VL1qdE?alignLeft=1&hideTitle=1&dynamicHeight=1" loading="lazy" width="100%" height="100" frameborder="0" marginheight="0" marginwidth="0" title="SPONSORSHIPS' REQUESTS"></iframe>
+    <iframe data-tally-src="https://tally.so/embed/VL1qdE?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="100" frameborder="0" marginheight="0" marginwidth="0" title="SPONSORSHIPS' REQUESTS"></iframe>
     <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
   </div>
 </div>
