@@ -44,5 +44,7 @@ excerpt: "This comparison showcases the Assassin's Creed Black Flag remake, feat
 
 <div style="max-width: 100%; overflow: hidden; border-radius: 8px; margin: 20px 0;"><iframe src="https://store.steampowered.com/widget/3751950/" frameborder="0" width="100%" height="190" style="display: block; border: none;"></iframe></div>
 
-<p style="margin-bottom: 15px; line-height: 1.6;">FOR DEVELOPERS 📩 Want your game featured? Reach out to us via the "About" section of our channel. We do gameplay previews and compilations every day!</p></div>
+<h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">📩 FOR DEVELOPERS</h3>
+
+<p style="margin-bottom: 15px; line-height: 1.6;">Want your game featured? Reach out to us via the "About" section of our channel. We do gameplay previews and compilations every day!</p></div>
 </div>
