@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Brand Partnerships and Sponsorships
-permalink: /partnerships/
+permalink: /hidden-page-project-143465436/
 ---
 
 <div class="landing-custom">
