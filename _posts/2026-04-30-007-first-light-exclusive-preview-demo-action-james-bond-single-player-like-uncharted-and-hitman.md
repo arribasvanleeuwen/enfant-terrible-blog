@@ -38,7 +38,7 @@ excerpt: "This new gameplay demo of 007 First Light showcases three diverse loca
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">🌍 FINAL THOUGHTS</h3>
 
-<p style="margin-bottom: 15px; line-height: 1.6;">After three hours of play, the mission structure seems remarkably diverse. From the icy shores of Iceland to the sun-drenched streets of Malta and the social puzzling of London, the different environments ensure the game never feels repetitive. IOI has managed to keep the player freedom they are famous for while injecting the blockbuster energy of a Naughty Dog title. This isn't a veteran; this isn't a superhero. This kid is dangerous, and you can feel he's on the verge of becoming something worth following throughout the entire story.</p>
+<p style="margin-bottom: 15px; line-height: 1.6;">What we noticed is that the mission structure seems remarkably diverse. From the icy shores of Iceland to the sun-drenched streets of Malta and the social puzzling of London, the different environments ensure the game never feels repetitive. IOI has managed to keep the player freedom they are famous for while injecting the blockbuster energy of a Naughty Dog title. This isn't a veteran; this isn't a superhero. This kid is dangerous, and you can feel he's on the verge of becoming something worth following throughout the entire story.</p>
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">💡 WHY IT WORKS</h3>
 
