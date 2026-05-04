@@ -20,7 +20,7 @@ excerpt: "This new gameplay demo of 007 First Light showcases three diverse loca
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">🕵️‍♂️ MORE THAN JUST HITMAN IN A TUXEDO</h3>
 
-<p style="margin-bottom: 15px; line-height: 1.6;">We recently spent three hours with 007: First Light, and we can tell you right now: any fears that this would just be "Hitman in a tuxedo" were completely misplaced. While the DNA of IO Interactive is there, this is a distinct, cinematic beast that captures the raw, unpolished energy of a young James Bond perfectly.</p>
+<p style="margin-bottom: 15px; line-height: 1.6;">We recently spent some time with 007: First Light, and we can tell you right now: any fears that this would just be "Hitman in a tuxedo" were completely misplaced. While the DNA of IO Interactive is there, this is a distinct, cinematic beast that captures the raw, unpolished energy of a young James Bond perfectly.</p>
 
 <p style="margin-bottom: 15px; line-height: 1.6;">Forget the seasoned veteran; First Light is a reimagined origin story. You play as a 26-year-old James Bond (voiced and modeled by Patrick Gibson), an ambitious but reckless MI6 recruit. After a heroic stint in the Navy, Bond is scouted for the newly revived Double 0 program. The plot follows his journey to earn his iconic license to kill while unraveling a conspiracy involving a rogue agent.</p>
 
