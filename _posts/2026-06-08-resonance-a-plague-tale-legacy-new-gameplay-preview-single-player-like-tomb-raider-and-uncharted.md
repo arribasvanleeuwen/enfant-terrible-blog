@@ -4,7 +4,7 @@ title: "RESONANCE A PLAGUE TALE LEGACY New Gameplay Preview | SINGLE PLAYER like
 date: 2026-06-08 18:00:17
 thumbnail: "https://img.youtube.com/vi/r4_t9v37TzY/maxresdefault.jpg"
 youtube_id: r4_t9v37TzY
-excerpt: ""
+excerpt: "This gameplay demo previews Resonance: A Plague Tale Legacy, an upcoming single player action adventure that shifts the franchise toward large-scale..."
 ---
 
 <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">
@@ -14,7 +14,9 @@ excerpt: ""
       <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>
     </div>
   </a>
-  <div class="description-container"><p style="margin-bottom: 15px; line-height: 1.6;">This gameplay demo previews Resonance: A Plague Tale Legacy, an upcoming single player action adventure that shifts the franchise toward large-scale exploration and aggressive melee combat. Blending historical fiction with mythical elements, the game combines Uncharted-style cinematic traversal with a precise, Sekiro-inspired parry system.</p>
+  <div class="description-container"><h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">📝 SUMMARY</h3>
+
+<div style="background: #1a1a1a; border-left: 5px solid #FF0B55; padding: 15px; margin: 20px 0; color: #ffffff; font-style: italic;">This gameplay demo previews Resonance: A Plague Tale Legacy, an upcoming single player action adventure that shifts the franchise toward large-scale exploration and aggressive melee combat. Blending historical fiction with mythical elements, the game combines Uncharted-style cinematic traversal with a precise, Sekiro-inspired parry system.</div>
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">✒️ DESCRIPTION</h3>
 
