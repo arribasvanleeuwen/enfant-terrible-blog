@@ -4,7 +4,7 @@ title: "STRANGER THAN HEAVEN First Gameplay Reveal | Criminal OPEN UNDERWORLD wi
 date: 2026-06-11 19:19:53
 thumbnail: "https://img.youtube.com/vi/Sre006MkLCs/maxresdefault.jpg"
 youtube_id: Sre006MkLCs
-excerpt: ""
+excerpt: "Developed in the Dragon Engine by Ryu Ga Gotoku Studio, Stranger Than Heaven is an ambitious open world action RPG that follows protagonist Makoto..."
 ---
 
 <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">
