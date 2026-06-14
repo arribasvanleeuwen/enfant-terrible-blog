@@ -14,7 +14,9 @@ excerpt: ""
       <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>
     </div>
   </a>
-  <div class="description-container"><p style="margin-bottom: 15px; line-height: 1.6;">Developed in the Dragon Engine by Ryu Ga Gotoku Studio, Stranger Than Heaven is an ambitious open world action RPG that follows protagonist Makoto Daito through a crime narrative spanning five decades of Japanese history.</p>
+  <div class="description-container"><h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">📝 SUMMARY</h3>
+    
+<div style="background: #1a1a1a; border-left: 5px solid #FF0B55; padding: 15px; margin: 20px 0; color: #ffffff; font-style: italic;">Developed in the Dragon Engine by Ryu Ga Gotoku Studio, Stranger Than Heaven is an ambitious open world action RPG that follows protagonist Makoto Daito through a crime narrative spanning five decades of Japanese history.</div>
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">✒️ DESCRIPTION</h3>
 
