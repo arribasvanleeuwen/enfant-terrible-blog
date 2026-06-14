@@ -4,7 +4,7 @@ title: "ALIEN ISOLATION 2 First Gameplay Reveal | MOST BRUTAL Space Survival Hor
 date: 2026-06-10 16:42:22
 thumbnail: "https://img.youtube.com/vi/vuuLxoT7GoQ/maxresdefault.jpg"
 youtube_id: vuuLxoT7GoQ
-excerpt: ""
+excerpt: "Developed in Unreal Engine 5 by Creative Assembly, Alien: Isolation 2 marks the highly anticipated return to first person survival horror by expanding..."
 ---
 
 <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">
@@ -14,7 +14,9 @@ excerpt: ""
       <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>
     </div>
   </a>
-  <div class="description-container"><p style="margin-bottom: 15px; line-height: 1.6;">Developed in Unreal Engine 5 by Creative Assembly, Alien: Isolation 2 marks the highly anticipated return to first person survival horror by expanding the original's claustrophobic dread onto a new hostile planet surface.</p>
+  <div class="description-container"><h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">📝 SUMMARY</h3>
+
+<div style="background: #1a1a1a; border-left: 5px solid #FF0B55; padding: 15px; margin: 20px 0; color: #ffffff; font-style: italic;">Developed in Unreal Engine 5 by Creative Assembly, Alien: Isolation 2 marks the highly anticipated return to first person survival horror by expanding the original's claustrophobic dread onto a new hostile planet surface</div>
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">✒️ DESCRIPTION</h3>
 
