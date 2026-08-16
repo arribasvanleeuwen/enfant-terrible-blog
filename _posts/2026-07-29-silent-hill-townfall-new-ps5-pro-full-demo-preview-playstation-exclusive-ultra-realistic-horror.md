@@ -3,7 +3,7 @@ layout: post
 title: "SILENT HILL TOWNFALL New PS5 PRO Full Demo Preview | PLAYSTATION EXCLUSIVE Ultra Realistic Horror"
 date: 2026-07-29 11:08:30
 thumbnail: ""
-youtube_id: puIkS9SS8jo
+youtube_id:
 excerpt: ""
 ---
 
