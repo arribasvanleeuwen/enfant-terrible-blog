@@ -2,14 +2,14 @@
 layout: post
 title: "SILENT HILL TOWNFALL New PS5 PRO Full Demo Preview | PLAYSTATION EXCLUSIVE Ultra Realistic Horror"
 date: 2026-07-29 11:08:30
-thumbnail: "https://img.youtube.com/vi/puIkS9SS8jo/maxresdefault.jpg"
+thumbnail: ""
 youtube_id: puIkS9SS8jo
 excerpt: ""
 ---
 
 <div class="video-post-wrapper" style="max-width: 800px; margin: 0 auto;">
-  <a href="https://www.youtube.com/watch?v=puIkS9SS8jo" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">
-    <img src="https://img.youtube.com/vi/puIkS9SS8jo/maxresdefault.jpg" style="width: 100%; display: block;">
+  <a href="" target="_blank" style="display: block; position: relative; border-radius: 15px; overflow: hidden; margin-bottom: 30px;">
+    <img src="" style="width: 100%; display: block;">
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: rgba(255, 11, 85, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
       <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>
     </div>
