@@ -18,9 +18,9 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install feedparser requests
+        run: pip import feedparser requests
 
-      - name: Generate Posts
+      - name: Generate and Clean Posts
         shell: python
         run: |
           import feedparser
@@ -48,16 +48,42 @@ jobs:
                   return max_res_url
               return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
 
-          existing_video_ids = set()
+          # 1. Función para comprobar si un vídeo sigue público en YouTube
+          def is_video_available(v_id):
+              url = f"https://www.youtube.com/watch?v={v_id}"
+              headers = {"User-Agent": "Mozilla/5.0"}
+              try:
+                  r = requests.get(url, headers=headers, timeout=10)
+                  if r.status_code != 200:
+                      return False
+                  if "Private video" in r.text or "This video is unavailable" in r.text or "Video unavailable" in r.text:
+                      return False
+                  return True
+              except Exception:
+                  return True # Si hay un error de red temporal, no borramos por seguridad
+
+          # 2. Leer posts existentes y mapear su ID de YouTube con su archivo
+          existing_posts = {}
           if os.path.exists(POSTS_DIR):
               for filename in os.listdir(POSTS_DIR):
                   if filename.endswith(".md"):
-                      with open(os.path.join(POSTS_DIR, filename), "r", encoding="utf-8") as f:
+                      filepath = os.path.join(POSTS_DIR, filename)
+                      with open(filepath, "r", encoding="utf-8") as f:
                           content = f.read()
                           match = re.search(r'youtube_id:\s*([a-zA-Z0-9_-]+)', content)
                           if match:
-                              existing_video_ids.add(match.group(1).strip())
+                              v_id = match.group(1).strip()
+                              existing_posts[v_id] = filepath
 
+          # 3. Eliminar automáticamente el post si el vídeo ya no está disponible
+          for v_id, filepath in list(existing_posts.items()):
+              if not is_video_available(v_id):
+                  print(f"El vídeo {v_id} es privado/borrado. Eliminando post: {filepath}")
+                  if os.path.exists(filepath):
+                      os.remove(filepath)
+                  del existing_posts[v_id]
+
+          existing_video_ids = set(existing_posts.keys())
           feed = feedparser.parse(FEED_URL)
 
           for entry in feed.entries:
@@ -111,7 +137,7 @@ jobs:
                       else:
                           # Enlaces y texto normal envueltos en <p> para espacio entre párrafos
                           p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
-                          p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace("\n", "<br>")}</p>'
+                          p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace(лни, "<br>")}</p>'
                       
                       formatted_paragraphs.append(p_html)
 
@@ -143,6 +169,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add _posts/*.md
-          git commit -m "Auto-post: Final responsive Steam widget and hyphen cleanup" || exit 0
+          git add _posts/
+          git commit -m "Auto-sync: create new posts and delete private/unavailable videos" || exit 0
           git push
