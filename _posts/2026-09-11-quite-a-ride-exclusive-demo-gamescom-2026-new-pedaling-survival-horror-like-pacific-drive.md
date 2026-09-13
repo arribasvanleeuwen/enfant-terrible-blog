@@ -14,7 +14,7 @@ excerpt: "Captured at Gamescom 2026, this Unreal Engine 5 demo previews Quite a 
       <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 22px solid white; margin-left: 5px;"></div>
     </div>
   </a>
-  <div class="description-container"><h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">⚠️ *Footage recorded by ENFANT TERRIBLE. Unauthorized use and/or duplication of this video is strictly prohibited.*</h3>
+  <div class="description-container">
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">📝 SUMMARY</h3>
 
