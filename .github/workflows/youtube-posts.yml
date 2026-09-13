@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: pip install feedparser requests
 
-      - name: Generate and Clean Posts
+      - name: Generate Posts
         shell: python
         run: |
           import feedparser
@@ -48,42 +48,16 @@ jobs:
                   return max_res_url
               return f"https://img.youtube.com/vi/{v_id}/sddefault.jpg"
 
-          # 1. Función para comprobar si un vídeo sigue público en YouTube
-          def is_video_available(v_id):
-              url = f"https://www.youtube.com/watch?v={v_id}"
-              headers = {"User-Agent": "Mozilla/5.0"}
-              try:
-                  r = requests.get(url, headers=headers, timeout=10)
-                  if r.status_code != 200:
-                      return False
-                  if "Private video" in r.text or "This video is unavailable" in r.text or "Video unavailable" in r.text:
-                      return False
-                  return True
-              except Exception:
-                  return True # Si hay un error de red temporal, no borramos por seguridad
-
-          # 2. Leer posts existentes y mapear su ID de YouTube con su archivo
-          existing_posts = {}
+          existing_video_ids = set()
           if os.path.exists(POSTS_DIR):
               for filename in os.listdir(POSTS_DIR):
                   if filename.endswith(".md"):
-                      filepath = os.path.join(POSTS_DIR, filename)
-                      with open(filepath, "r", encoding="utf-8") as f:
+                      with open(os.path.join(POSTS_DIR, filename), "r", encoding="utf-8") as f:
                           content = f.read()
                           match = re.search(r'youtube_id:\s*([a-zA-Z0-9_-]+)', content)
                           if match:
-                              v_id = match.group(1).strip()
-                              existing_posts[v_id] = filepath
+                              existing_video_ids.add(match.group(1).strip())
 
-          # 3. Eliminar automáticamente el post si el vídeo ya no está disponible
-          for v_id, filepath in list(existing_posts.items()):
-              if not is_video_available(v_id):
-                  print(f"El vídeo {v_id} es privado/borrado. Eliminando post: {filepath}")
-                  if os.path.exists(filepath):
-                      os.remove(filepath)
-                  del existing_posts[v_id]
-
-          existing_video_ids = set(existing_posts.keys())
           feed = feedparser.parse(FEED_URL)
 
           for entry in feed.entries:
@@ -100,7 +74,6 @@ jobs:
               if not os.path.exists(filepath):
                   thumb_url = get_best_thumbnail(video_id)
                   
-                  # 1. Recuperar párrafos originales (bloques separados por doble línea)
                   paragraphs = re.split(r'\n\s*\n', entry.summary.strip())
                   content_paragraphs = paragraphs[2:-1] if len(paragraphs) > 3 else paragraphs
 
@@ -112,10 +85,8 @@ jobs:
                       p = p.strip()
                       if not p: continue
                       
-                      # Limpiar líneas de tiempo
                       p = re.sub(r'^\d{1,2}:\d{2}.*$', '', p, flags=re.MULTILINE).strip()
                       
-                      # Limpiar guiones y prepararlos como párrafo nuevo
                       if p.startswith(('-', '•', '*', '/')):
                           p = re.sub(r'^[-•*/]+\s*', '', p).strip()
 
@@ -130,12 +101,10 @@ jobs:
                           steam_match = re.search(r'https://store\.steampowered\.com/app/(\d+)', p)
                           if steam_match:
                               game_id = steam_match.group(1)
-                              # SOLUCIÓN: Caja que corta lo que sobre por la derecha
                               p_html = f'<div style="max-width: 100%; overflow: hidden; border-radius: 8px; margin: 20px 0;"><iframe src="https://store.steampowered.com/widget/{game_id}/" frameborder="0" width="100%" height="190" style="display: block; border: none;"></iframe></div>'
                           else:
                               p_html = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                       else:
-                          # Enlaces y texto normal envueltos en <p> para espacio entre párrafos
                           p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
                           p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace("\n", "<br>")}</p>'
                       
@@ -169,6 +138,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add _posts/
-          git commit -m "Auto-sync: create new posts and delete private/unavailable videos" || exit 0
+          git add _posts/*.md
+          git commit -m "Auto-post: Final responsive Steam widget and hyphen cleanup" || exit 0
           git push
