@@ -10,15 +10,15 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip import feedparser requests
+        run: pip install feedparser requests
 
       - name: Generate and Clean Posts
         shell: python
@@ -137,7 +137,7 @@ jobs:
                       else:
                           # Enlaces y texto normal envueltos en <p> para espacio entre párrafos
                           p_clean = re.sub(r'(https?://[^\s]+)', f'<a href="\\1" target="_blank" style="color: {rosa_web}; font-weight: bold;">\\1</a>', p)
-                          p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace(лни, "<br>")}</p>'
+                          p_html = f'<p style="margin-bottom: 15px; line-height: 1.6;">{p_clean.replace("\n", "<br>")}</p>'
                       
                       formatted_paragraphs.append(p_html)
 
