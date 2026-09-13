@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "EXODUS First Demo Gamescom 2026 | New Single Player Space Action RPG for Mass Effect Fans"
+title: "EXODUS Full Mission Demo | New Mass Effect Successor Set to Challenge ALL SPACE ACTION RPGS in 2027"
 date: 2026-09-04 13:00:04
 thumbnail: "https://img.youtube.com/vi/tJnEIdxwHzc/maxresdefault.jpg"
 youtube_id: tJnEIdxwHzc

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "NEW OFFICIAL DLSS 5 and NBA 2K27 Gameplay | INSANE NEXT GEN 4K Neural Rendering Tech Demo 2026"
+title: "NBA 2K27 with OFFICIAL DLSS 5 Looks Like REAL LIFE | Ultra Realistic Graphics Tech Demo RTX 5090 4K"
 date: 2026-09-04 17:36:15
 thumbnail: "https://img.youtube.com/vi/9eIUKUSkDuI/maxresdefault.jpg"
 youtube_id: 9eIUKUSkDuI

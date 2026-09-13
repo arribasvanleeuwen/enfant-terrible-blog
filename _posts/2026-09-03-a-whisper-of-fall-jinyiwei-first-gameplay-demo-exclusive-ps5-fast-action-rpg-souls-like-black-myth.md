@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A WHISPER OF FALL JINYIWEI First Demo Gamescom 2026 | EXCLUSIVE PS5 PC Brutal Action RPG Souls"
+title: "A WHISPER OF FALL JINYIWEI First Gameplay Demo | EXCLUSIVE PS5 Fast-Action RPG Souls like Black Myth"
 date: 2026-09-03 13:00:24
 thumbnail: "https://img.youtube.com/vi/jTgV6XwxKfU/maxresdefault.jpg"
 youtube_id: jTgV6XwxKfU

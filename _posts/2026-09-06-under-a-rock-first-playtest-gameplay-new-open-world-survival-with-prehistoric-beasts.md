@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "UNDER A ROCK First Closed Alpha Demo | Primitive OPEN WORLD MONSTER SURVIVAL like Ark and Valheim"
+title: "UNDER A ROCK First Playtest Gameplay | New OPEN WORLD SURVIVAL with Prehistoric BEASTS"
 date: 2026-09-06 11:30:34
 thumbnail: "https://img.youtube.com/vi/k369vV20BwU/maxresdefault.jpg"
 youtube_id: k369vV20BwU

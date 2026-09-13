@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "FINAL FANTASY VII REVELATION New Demo Gamescom 2026 | Most Epic Hack and Slash OPEN WORLD ACTION RPG"
+title: "FINAL FANTASY VII REVELATION New PS5 PRO Gameplay Preview | 2027 OPEN WORLD Single Player Action RPG"
 date: 2026-09-10 16:54:18
 thumbnail: "https://img.youtube.com/vi/F3SPSWYmip0/maxresdefault.jpg"
 youtube_id: F3SPSWYmip0

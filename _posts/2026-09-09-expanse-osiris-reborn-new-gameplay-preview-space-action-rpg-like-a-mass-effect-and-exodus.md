@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "EXPANSE OSIRIS REBORN New Demo Gamescom 2026 | Single Player Action RPG for Mass Effect Fans"
+title: "EXPANSE OSIRIS REBORN New Gameplay Preview | Space Action RPG like a MASS EFFECT and EXODUS"
 date: 2026-09-09 15:51:08
 thumbnail: "https://img.youtube.com/vi/8fFmr35PdLE/maxresdefault.jpg"
 youtube_id: 8fFmr35PdLE
