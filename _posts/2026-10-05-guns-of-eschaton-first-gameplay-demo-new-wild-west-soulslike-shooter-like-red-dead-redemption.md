@@ -42,7 +42,7 @@ excerpt: "Check out our exclusive preview of Guns of Eschaton, an Unreal Engine 
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">🕹️ SUPPORT THE DEVELOPERS</h3>
 
-Wishlist/Buy on Steam: <a href="https://store.steampowered.com/app/Guns_of_Eschaton/" target="_blank" style="color: #FF0B55; font-weight: bold;">https://store.steampowered.com/app/Guns_of_Eschaton/</a>
+Buy/Wishlist on Steam: <a href="https://store.steampowered.com/app/Guns_of_Eschaton/" target="_blank" style="color: #FF0B55; font-weight: bold;">https://store.steampowered.com/app/Guns_of_Eschaton/</a>
 
 <h3 style="color: #ffffff; margin-top: 30px; border-bottom: 2px solid #FF0B55; padding-bottom: 5px; font-weight: 700; text-transform: uppercase;">📩 FOR DEVELOPERS</h3>
 
